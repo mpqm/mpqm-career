@@ -10,7 +10,7 @@ Orchestrator의 관리 기능 개발과 운영설명서·설치지침서 작성.
 
 2026-11-22 로컬 전체 Ref와 개인 author 재집계. 5개 저장소 543건 중 개인 211건(비병합 208건). Orchestrator의 Host·Transaction·Dashboard Controller와 로그인 도입 커밋 `5fd57dd`의 변경 경로를 확인했다. 2025-07-07 판 배포 자산은 설치 준비 범위를 보여 준다.
 
-CXL 155~166번 티켓의 콘솔·매뉴얼 업무는 Orchestrator Git과 2025-07-07 판 문서에 연결된다. [업무 티켓 소스](../ticket/%EC%97%85%EB%AC%B4%20%ED%8B%B0%EC%BC%93%20%EC%86%8C%EC%8A%A4.md)
+CXL 155~166번 티켓의 콘솔·매뉴얼 업무는 Orchestrator Git과 2025-07-07 판 문서에 연결된다. [업무 티켓 소스](./process-ticket.md)
 
 <a id="evidence"></a>
 
@@ -29,7 +29,7 @@ CXL 155~166번 티켓의 콘솔·매뉴얼 업무는 Orchestrator Git과 2025-07
 | Git 활동 기간 | 2025-04-08 ~ 2025-07-04 |
 | 본인 커밋 | 211건 (2025-04 38, 05 131, 06 36, 07 6) |
 | 변경량 참고치 | `cxl-orchestrator-v2` 기준 +44,899 / -63,106줄, 변경 파일 657개 |
-| 티켓 근거 | `knowledge/ticket/업무 티켓 소스.md` §2의 원본 업무 티켓 번호 155~166; 작성자·결과는 Git·Code와 대조 |
+| 티켓 근거 | `knowledge/fornet/process-ticket.md` §2의 업무 티켓 번호 155~166. 작성자와 결과는 Git·Code와 대조 |
 | 산출물 근거 | 본인 작성(사용자 확인): CXL ENABLER 운영설명서·설치지침서. 인터페이스 문서는 개발 시 참고 자료 |
 
 ##### 1.0 재조사 범위와 저장소 소유권

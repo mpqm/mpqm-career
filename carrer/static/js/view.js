@@ -13,15 +13,17 @@ export function renderList(target, template, items, fill) {
   const $target = $(target);
   items.forEach((item, index) => {
     const $node = clone(template);
-    fill($node, item, index);
+    bindTexts($node, item);
+    fill?.($node, item, index);
     $target.append($node);
   });
 }
 
-export function bindTexts(target = $('[data-text]')) {
-  $(target).each((_, node) => {
+export function bindTexts(scope = document, source = data) {
+  $(scope).find('[data-text]').addBack('[data-text]').each((_, node) => {
     const $node = $(node);
-    const value = $node.attr('data-text').split('.').reduce((value, key) => value?.[key], data);
+    const field = $node.attr('data-text');
+    const value = field === '.' ? source : field.split('.').reduce((value, key) => value?.[key], source);
     $node.text(value ?? '');
   });
 }

@@ -42,11 +42,25 @@
   </main>
   <footer class="site-footer"><div class="wrap"><div><p class="eyebrow">LET'S CONNECT</p><h2>함께 일할 기회를<br>기다립니다.</h2><div class="footer-links" id="footer-links"></div></div><a href="#top">맨 위로 ↑</a></div></footer>
 
-  <template id="focus-template"><div><span></span><h3></h3><p></p></div></template>
-  <template id="project-template"><article class="project-card"><div class="project-top"><span></span><a aria-label="상세 보기">↗</a></div><h3></h3><p class="project-summary"></p><p class="project-contribution"></p><div class="tags"></div></article></template>
-  <template id="earlier-template"><article><span>2024 / EARLIER WORK</span><h3></h3><p></p></article></template>
-  <template id="skill-template"><div><h3></h3><p></p></div></template>
-  <template id="education-template"><div class="timeline-item"><time></time><div><h3></h3><p></p></div></div></template>
-  <template id="link-template"><a target="_blank" rel="noopener noreferrer"><span class="link-label"></span><span aria-hidden="true"> ↗</span></a></template>
-  <template id="project-tag-template"><span></span></template>
-  <template id="home-certificate-template"><p></p></template>
+  <template id="focus-template">
+    <div><span data-text="number"></span><h3 data-text="title"></h3><p data-text="detail"></p></div>
+  </template>
+  <template id="project-template">
+    <article class="project-card">
+      <div class="project-top"><span></span><a aria-label="상세 보기">↗</a></div>
+      <h3 data-text="name"></h3>
+      <p class="project-summary" data-text="summary"></p>
+      <p class="project-contribution" data-text="contribution"></p>
+      <div class="tags"></div>
+    </article>
+  </template>
+  <template id="earlier-template">
+    <article><span>2024 / EARLIER WORK</span><h3 data-text="name"></h3><p data-text="detail"></p></article>
+  </template>
+  <template id="skill-template"><div><h3 data-text="title"></h3><p></p></div></template>
+  <template id="education-template">
+    <div class="timeline-item"><time data-text="date"></time><div><h3 data-text="title"></h3><p data-text="detail"></p></div></div>
+  </template>
+  <template id="link-template"><a target="_blank" rel="noopener noreferrer"><span data-text="label"></span><span aria-hidden="true"> ↗</span></a></template>
+  <template id="project-tag-template"><span data-text="."></span></template>
+  <template id="home-certificate-template"><p data-text="."></p></template>

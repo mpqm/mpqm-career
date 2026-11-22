@@ -1,4 +1,4 @@
-<div class="slides-toolbar"><a href="./index.html">← 홈페이지 보기</a><span>16:9 슬라이드 · 브라우저에서 인쇄하여 PDF로 저장 가능</span><button id="print-button" type="button">인쇄 / PDF 저장</button></div>
+<div class="slides-toolbar"><a href="./index.html">← 홈페이지 보기</a><span>16:9 슬라이드 · 브라우저에서 인쇄하여 PDF로 저장 가능</span><a href="./download/포트폴리오.pdf" download>PDF 다운로드</a><button id="print-button" type="button">인쇄 / PDF 저장</button></div>
   <main class="slides-wrap" id="slides">
     <section class="slide cover-slide" aria-label="1번 슬라이드"><div class="slide-head"><span>박종성 / PORTFOLIO</span><span>01</span></div><div class="slide-body"><p class="eyebrow">PORTFOLIO</p><h2><span data-text="name"></span><br><em data-text="role"></em></h2><p class="slide-big-copy" data-text="headline"></p><div class="slide-links" id="slide-links"></div></div><div class="slide-foot">FULL-STACK DEVELOPER <span data-text="careerLevel"></span></div></section>
     <section class="slide" aria-label="2번 슬라이드"><div class="slide-head"><span>박종성 / PORTFOLIO</span><span>02</span></div><div class="slide-body"><p class="eyebrow">ABOUT ME</p><h2>소개</h2><div class="slide-two-col"><p class="slide-summary" data-text="intro"></p><img class="slide-portrait" src="./static/image/profileimg.jpg" alt="박종성 프로필 사진"></div><div class="slide-focus" id="slide-focus"></div></div><div class="slide-foot">FULL-STACK DEVELOPER <span data-text="careerLevel"></span></div></section>
@@ -9,15 +9,15 @@
   </main>
 
   <template id="project-intro-template"><section class="slide case-slide"><div class="slide-head"><span>박종성 / PORTFOLIO</span><span class="slide-number"></span></div><div class="slide-body"><p class="eyebrow"></p><h2></h2><div class="case-slide-intro"><p class="slide-summary"></p><div class="slide-system"></div></div><div class="slide-tags"></div></div><div class="slide-foot">FULL-STACK DEVELOPER <span>경력 2년 차</span></div></section></template>
-  <template id="project-detail-template"><section class="slide case-detail-slide"><div class="slide-head"><span>박종성 / PORTFOLIO</span><span class="slide-number"></span></div><div class="slide-body"><p class="eyebrow"></p><h2></h2><div class="slide-case-grid"><div><small>01 / 문제</small><p></p></div><div><small>02 / 접근</small><p></p></div><div><small>03 / 개인 기여</small><p></p></div><div><small>04 / 결과</small><p></p></div></div></div><div class="slide-foot">FULL-STACK DEVELOPER <span>경력 2년 차</span></div></section></template>
+  <template id="project-detail-template"><section class="slide case-detail-slide"><div class="slide-head"><span>박종성 / PORTFOLIO</span><span class="slide-number"></span></div><div class="slide-body"><p class="eyebrow"></p><h2></h2><div class="slide-case-grid"><div><small>01 / 문제</small><p data-text="problem"></p></div><div><small>02 / 접근</small><p data-text="approach"></p></div><div><small>03 / 개인 기여</small><p data-text="role"></p></div><div><small>04 / 결과</small><p data-text="outcome"></p></div></div></div><div class="slide-foot">FULL-STACK DEVELOPER <span>경력 2년 차</span></div></section></template>
   <template id="project-deep-template"><section class="slide deep-slide"><div class="slide-head"><span>박종성 / PORTFOLIO</span><span class="slide-number"></span></div><div class="slide-body"><p class="eyebrow"></p><h2></h2><div class="slide-deep-grid"></div></div><div class="slide-foot">FULL-STACK DEVELOPER <span>경력 2년 차</span></div></section></template>
-  <template id="deep-item-template"><div><small></small><h3></h3><p class="deep-problem"></p><strong></strong><p class="deep-result"></p></div></template>
+  <template id="deep-item-template"><div><small></small><h3 data-text="title"></h3><p class="deep-problem" data-text="problem"></p><strong data-text="action"></strong><p class="deep-result" data-text="result"></p></div></template>
   <template id="slide-link-template"><a target="_blank" rel="noopener noreferrer"></a></template>
-  <template id="slide-focus-template"><div><span></span><strong></strong><p></p></div></template>
-  <template id="slide-bullet-template"><li></li></template>
-  <template id="slide-skill-template"><div><h3></h3><p></p></div></template>
-  <template id="slide-education-template"><div><time></time><h3></h3><p></p></div></template>
-  <template id="slide-certificate-template"><p></p></template>
+  <template id="slide-focus-template"><div><span data-text="number"></span><strong data-text="title"></strong><p data-text="detail"></p></div></template>
+  <template id="slide-bullet-template"><li data-text="."></li></template>
+  <template id="slide-skill-template"><div><h3 data-text="title"></h3><p></p></div></template>
+  <template id="slide-education-template"><div><time data-text="date"></time><h3 data-text="title"></h3><p data-text="detail"></p></div></template>
+  <template id="slide-certificate-template"><p data-text="."></p></template>
   <template id="slide-system-template"><strong>운영자 화면 · API</strong><span>Orchestrator / 담당</span><b>↓ ActiveMQ 요청·응답</b><strong>Control Plane · Agent · Resource Manager</strong><span>협업 모듈</span></template>
   <template id="slide-flow-step-template"><strong></strong><b>↓</b></template>
-  <template id="slide-tag-template"><span></span></template>
+  <template id="slide-tag-template"><span data-text="."></span></template>

@@ -12,7 +12,7 @@
 
   async function loadRoute() {
     if (location.protocol === 'file:') {
-      throw new Error('로컬 HTTP 서버에서 이 페이지를 열어 주세요. 실행 방법은 carrer/README.md에 있습니다.');
+      throw new Error('로컬 HTTP 서버에서 이 페이지를 열어 주세요. 실행 방법은 저장소 README.md에 있습니다.');
     }
     const requested = new URLSearchParams(location.search).get('view');
     const name = routes.has(requested) ? requested : 'home';
@@ -26,7 +26,11 @@
       $('link[rel="stylesheet"]').prop('disabled', true);
       $.getScript('https://cdn.tailwindcss.com');
     }
-    if (route.render) await route.render();
+    if (route.render) {
+      const { bindTexts } = await import('./view.js');
+      bindTexts();
+      await route.render();
+    }
     $body.attr('data-route', name);
 
     if (location.hash) {

@@ -11,6 +11,7 @@ const types = new Map([
   ['.svg', 'image/svg+xml'],
   ['.png', 'image/png'],
   ['.jpg', 'image/jpeg'],
+  ['.pdf', 'application/pdf'],
 ]);
 
 export async function startServer(port = 0) {
@@ -44,6 +45,10 @@ export async function startServer(port = 0) {
 }
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
-  const server = await startServer(8000);
+  const port = Number(process.argv[2] ?? 8000);
+  if (!Number.isInteger(port) || port < 0 || port > 65535) {
+    throw new Error('Use a port from 0 to 65535.');
+  }
+  const server = await startServer(port);
   console.log(`http://127.0.0.1:${server.address().port}/`);
 }

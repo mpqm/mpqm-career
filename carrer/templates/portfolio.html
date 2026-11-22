@@ -16,13 +16,44 @@
   </main>
   <footer class="detail-bottom"><div class="detail-shell"><span>© 박종성 · Portfolio draft</span><a href="#overview">맨 위로 ↑</a></div></footer>
 
-  <template id="detail-focus-template"><div><span></span><strong></strong><p></p></div></template>
-  <template id="experience-template"><div><span></span><strong></strong></div></template>
-  <template id="work-index-template"><a><span></span><strong></strong><small></small><b aria-hidden="true">↗</b></a></template>
-  <template id="case-template"><article class="case-study"><header class="case-header"><div><p class="case-count"></p><h2></h2><p class="case-one-line"></p></div><div class="case-meta"><span>PERIOD</span><strong class="case-period"></strong><span>ROLE</span><strong class="case-role"></strong></div></header><div class="case-visual"></div><div class="case-narrative"></div><div class="case-deep"></div><footer class="case-footer"><div><span>TECHNOLOGY</span><p class="case-stack"></p></div><div><span>자료 근거</span><p class="case-evidence"></p></div><div class="case-links"></div></footer></article></template>
-  <template id="narrative-template"><section><div class="case-label"><span></span><h3></h3><small></small></div><p></p></section></template>
-  <template id="deep-template"><section><div><span></span><h4></h4></div><dl><dt>문제</dt><dd></dd><dt>구현</dt><dd></dd><dt>확인된 결과</dt><dd></dd></dl></section></template>
-  <template id="appendix-template"><div><span></span><strong></strong><small></small></div></template>
+  <template id="detail-focus-template">
+    <div><span data-text="number"></span><strong data-text="title"></strong><p data-text="detail"></p></div>
+  </template>
+  <template id="experience-template"><div><span></span><strong data-text="."></strong></div></template>
+  <template id="work-index-template">
+    <a><span data-text="number"></span><strong data-text="name"></strong><small data-text="oneLine"></small><b aria-hidden="true">↗</b></a>
+  </template>
+  <template id="case-template">
+    <article class="case-study">
+      <header class="case-header">
+        <div><p class="case-count"></p><h2 data-text="name"></h2><p class="case-one-line" data-text="oneLine"></p></div>
+        <div class="case-meta">
+          <span>PERIOD</span><strong class="case-period" data-text="period"></strong>
+          <span>ROLE</span><strong class="case-role" data-text="roleLabel"></strong>
+        </div>
+      </header>
+      <div class="case-visual"></div>
+      <div class="case-narrative">
+        <section><div class="case-label"><span>01</span><h3>문제</h3><small>WHY</small></div><p data-text="problem"></p></section>
+        <section><div class="case-label"><span>02</span><h3>접근과 설계</h3><small>HOW</small></div><p data-text="approach"></p></section>
+        <section><div class="case-label"><span>03</span><h3>내가 구현한 범위</h3><small>CONTRIBUTION</small></div><p data-text="role"></p></section>
+        <section><div class="case-label"><span>04</span><h3>결과와 근거</h3><small>EVIDENCE</small></div><p data-text="outcome"></p></section>
+      </div>
+      <div class="case-deep"></div>
+      <footer class="case-footer">
+        <div><span>TECHNOLOGY</span><p class="case-stack"></p></div>
+        <div><span>자료 근거</span><p class="case-evidence" data-text="evidence"></p></div>
+        <div class="case-links"></div>
+      </footer>
+    </article>
+  </template>
+  <template id="deep-template">
+    <section>
+      <div><span></span><h4 data-text="title"></h4></div>
+      <dl><dt>문제</dt><dd data-text="problem"></dd><dt>구현</dt><dd data-text="action"></dd><dt>확인된 결과</dt><dd data-text="result"></dd></dl>
+    </section>
+  </template>
+  <template id="appendix-template"><div><span></span><strong data-text="name"></strong><small data-text="detail"></small></div></template>
   <template id="case-system-template">
     <div class="system-owner"><span>MY SCOPE</span><strong>관리자 웹 화면 + Orchestrator API</strong><p>Group · Host · Memory · Script · Dashboard</p></div>
     <div class="system-path">요청 ↓ ActiveMQ ↓ 결과</div>
@@ -30,7 +61,7 @@
     <span class="visual-caption">담당 범위를 구분한 개념도</span>
   </template>
   <template id="case-flow-template"><div class="diagram-flow"></div><span class="workflow-caption"></span></template>
-  <template id="diagram-step-template"><div class="diagram-step"><small></small><strong></strong></div></template>
+  <template id="diagram-step-template"><div class="diagram-step"><small></small><strong data-text="."></strong></div></template>
   <template id="case-deep-heading-template"><div class="case-deep-heading"><span>ENGINEERING DECISIONS</span><h3>문제를 어떻게 해결했는가</h3></div></template>
   <template id="detail-link-template"><a target="_blank" rel="noopener noreferrer"></a></template>
   <template id="case-type-template"><span></span></template>

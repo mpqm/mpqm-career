@@ -29,15 +29,15 @@
 
 | 넣을 사례 | 보여 줄 장면 |
 |---|---|
-| [CXL](reason/cxl-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) | 운영 콘솔 → API/메시징 → Host 제어 → Transaction 추적 |
-| [SVT](reason/svt-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) | PMU·시나리오 설정 → 바이너리 Frame 해석 → 검사 이력·보고서 |
-| [KSTV5](reason/kstv5-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) | 보고서 성능 측정 오류 교정 → 변경·재검증 → 폐쇄망 설치 절차 |
-| [KSTV6](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) | 인증·감사, 검색·보고서의 연결. 부하 도구와 처리량 실험은 별도 사례로 구성 |
-| [ONEWAY](reason/oneway-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) | 레거시 모듈·TX/RX 흐름 분석을 세미나와 시험 절차로 전달 |
-| [IDPP](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) | 폐쇄망 부트스트랩·GitOps → 저장소 선택 → VM 장애 사슬과 재검증 |
-| [SCG](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) | NiFi 통합, 통계 키 정합성과 재수집 오류 원인 분리 |
+| [CXL](../fornet/project-cxl.md#materials) | 운영 콘솔 → API/메시징 → Host 제어 → Transaction 추적 |
+| [SVT](../fornet/project-svt.md#materials) | PMU·시나리오 설정 → 바이너리 Frame 해석 → 검사 이력·보고서 |
+| [KSTV5](../fornet/project-kstv5.md#materials) | 보고서 성능 측정 오류 교정 → 변경·재검증 → 폐쇄망 설치 절차 |
+| [KSTV6](../fornet/project-kstv6.md#materials) | 인증·감사, 검색·보고서의 연결. 부하 도구와 처리량 실험은 별도 사례로 구성 |
+| [ONEWAY](../fornet/project-oneway.md#materials) | 레거시 모듈·TX/RX 흐름 분석을 세미나와 시험 절차로 전달 |
+| [IDPP](../fornet/project-idpp.md#materials) | 폐쇄망 부트스트랩·GitOps → 저장소 선택 → VM 장애 사슬과 재검증 |
+| [SCG](../fornet/project-scg.md#materials) | NiFi 통합, 통계 키 정합성과 재수집 오류 원인 분리 |
 
-웹·슬라이드 제작 참고 자료는 [MPQM](%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4%20%EC%B0%B8%EA%B3%A0.md)에 있다.
+웹·슬라이드 제작 참고 자료는 [MPQM](../../README.md#mpqm)에 있다.
 
 <a id="dashboard"></a>
 
@@ -62,14 +62,14 @@
 
 | 기간 | 프로젝트 | 핵심 역할·경험 | 상세 근거 |
 |---|---|---|---|
-| 2025-04~07 | CXL ENABLER Orchestrator V2 | Login부터 Host·Memory·Script·Transaction·Dashboard까지 Full-stack 기능 개발 | [CXL](reason/cxl-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) |
-| 2025-06~07 | SVT Manager | IEEE C37.118 Packet 처리, 시나리오·PMU·진단·Report를 포함한 검증 도구 개발 | [SVT](reason/svt-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) |
-| 2025-11~2026-01 주요 변경·2026-11 후속 UI | SCG MDMS·GASDOT | NiFi 통합, Event 통계 정합성, 예방 Event 조건, Collector 재수집, 대시보드 알람 기준 표시 | [기존 근거](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) · [추가 조사](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#follow-up) |
-| 2026-01~11(커밋 관측 기간) | KSTV6 | WebMgr·Engine API, CC 대비 인증·감사, OpenSearch, Report Manager, 운영 메뉴·SQL | [과거 통합 근거](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) · [분리 저장소 추가 조사](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#follow-up) |
-| 2026-09~10 | KSTV5 | 보고서 서비스 이식·생성/이력 통합, SQL·실행 안정성, 취약점 스크립트 수정, 성능 측정·패치/설치 문서 | [KSTV5](reason/kstv5-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) |
-| 2025-09 문서 작성·2026-01~10 테스터 커밋(실투입 기간 확인 필요) | Data Pipeline | 멀티스레드·멀티프로세스 부하 도구 개발, Kafka–Fluent Bit–OpenSearch 성능·장기 시험과 병목 분석 | [Data Pipeline·Tester](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#pipeline) |
-| 자료 2025-08, 발표일 확인 필요 | ONEWAY | 레거시 모듈·TX/RX 흐름 분석, 설치/시험 절차 정리, 64장 기술 세미나 제작·발표 | [ONEWAY](reason/oneway-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) |
-| 2025-09 초기 설계·2026-10~11 k3s Git | IDPP | UI·ERD·시험 계획 문서 작성; 폐쇄망 k3s 설치·GitOps·스토리지·시험 VM 검증. 응용 기능 개발 제외 | [상세 근거](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) · [제작 원고](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) |
+| 2025-04~07 | CXL ENABLER Orchestrator V2 | Login부터 Host·Memory·Script·Transaction·Dashboard까지 Full-stack 기능 개발 | [CXL](../fornet/project-cxl.md#evidence) |
+| 2025-06~07 | SVT Manager | IEEE C37.118 Packet 처리, 시나리오·PMU·진단·Report를 포함한 검증 도구 개발 | [SVT](../fornet/project-svt.md#evidence) |
+| 2025-11~2026-01 주요 변경·2026-11 후속 UI | SCG MDMS·GASDOT | NiFi 통합, Event 통계 정합성, 예방 Event 조건, Collector 재수집, 대시보드 알람 기준 표시 | [기존 근거](../fornet/project-scg.md#evidence) · [추가 조사](../fornet/project-scg.md#follow-up) |
+| 2026-01~11(커밋 관측 기간) | KSTV6 | WebMgr·Engine API, CC 대비 인증·감사, OpenSearch, Report Manager, 운영 메뉴·SQL | [과거 통합 근거](../fornet/project-kstv6.md#evidence) · [분리 저장소 추가 조사](../fornet/project-kstv6.md#follow-up) |
+| 2026-09~10 | KSTV5 | 보고서 서비스 이식·생성/이력 통합, SQL·실행 안정성, 취약점 스크립트 수정, 성능 측정·패치/설치 문서 | [KSTV5](../fornet/project-kstv5.md#evidence) |
+| 2025-09 문서 작성·2026-01~10 테스터 커밋(실투입 기간 확인 필요) | Data Pipeline | 멀티스레드·멀티프로세스 부하 도구 개발, Kafka–Fluent Bit–OpenSearch 성능·장기 시험과 병목 분석 | [Data Pipeline·Tester](../fornet/project-kstv6.md#pipeline) |
+| 자료 2025-08, 발표일 확인 필요 | ONEWAY | 레거시 모듈·TX/RX 흐름 분석, 설치/시험 절차 정리, 64장 기술 세미나 제작·발표 | [ONEWAY](../fornet/project-oneway.md#evidence) |
+| 2025-09 초기 설계·2026-10~11 k3s Git | IDPP | UI·ERD·시험 계획 문서 작성; 폐쇄망 k3s 설치·GitOps·스토리지·시험 VM 검증. 응용 기능 개발 제외 | [상세 근거](../fornet/project-idpp.md#evidence) · [제작 원고](../fornet/project-idpp.md#materials) |
 
 #### 3. 내가 한 주요 작업
 
@@ -147,7 +147,7 @@
 | 목적 | 문서 |
 |---|---|
 | 전체 근거와 표현 경계 확인 | [경력 마스터 근거 지도](#evidence-map) |
-| 프로젝트 상세 검증 | [CXL](reason/cxl-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) · [SVT](reason/svt-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) · [KST](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) · [Data Pipeline](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#pipeline) · [ONEWAY](reason/oneway-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) · [SCG](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) |
+| 프로젝트 상세 검증 | [CXL](../fornet/project-cxl.md#evidence) · [SVT](../fornet/project-svt.md#evidence) · [KST](../fornet/project-kstv6.md#evidence) · [Data Pipeline](../fornet/project-kstv6.md#pipeline) · [ONEWAY](../fornet/project-oneway.md#evidence) · [SCG](../fornet/project-scg.md#evidence) |
 | 경력기술서 작성 | [경력기술서 마스터본](#career) |
 | 지원 직무 선택 | [주력 포지션·지원 전략](#strategy) |
 | 이력서 제출본 작성 | [채용용 이력서 원본](#resume) |
@@ -399,11 +399,11 @@ Python 기반 SYSLOG 부하 Generator와 Kafka–Fluent Bit–OpenSearch 시험 
 
 ### KSTV5 보고서 운영 및 폐쇄망 적용
 
-보고서 생성·이력 흐름을 연결하고, 조회 SQL과 동일 작업의 중복 실행 조건, 재시작 후 이력 정리를 보완했다. Windows 보안 점검 스크립트와 DB 반영 절차를 손봤으며 성능 측정 및 설치·패치 안내를 작성했다. 시험 기록에서 기존 3회 600초 타임아웃과 수정 후 3회 완주(평균 약 6.6분)를 확인했다. [상세 근거](reason/kstv5-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md)
+보고서 생성·이력 흐름을 연결하고, 조회 SQL과 동일 작업의 중복 실행 조건, 재시작 후 이력 정리를 보완했다. Windows 보안 점검 스크립트와 DB 반영 절차를 손봤으며 성능 측정 및 설치·패치 안내를 작성했다. 시험 기록에서 기존 3회 600초 타임아웃과 수정 후 3회 완주(평균 약 6.6분)를 확인했다. [상세 근거](../fornet/project-kstv5.md)
 
 ### IDPP 설계 문서 및 k3s
 
-초기 UI·ERD·시험계획을 작성하고 이후 폐쇄망 k3s 환경을 구현했다. Bash·Ansible 설치, GitLab Registry와 Argo CD, Cilium, Kafka·IoTDB 정적 Local PV와 Longhorn을 구성했다. VM 설치·재설치와 디스크 고갈의 연쇄 영향을 검증 기록에 남겼다. [상세 근거](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md)
+초기 UI·ERD·시험계획을 작성하고 이후 폐쇄망 k3s 환경을 구현했다. Bash·Ansible 설치, GitLab Registry와 Argo CD, Cilium, Kafka·IoTDB 정적 Local PV와 Longhorn을 구성했다. VM 설치·재설치와 디스크 고갈의 연쇄 영향을 검증 기록에 남겼다. [상세 근거](../fornet/project-idpp.md)
 
 <a id="resume"></a>
 
@@ -599,8 +599,8 @@ Java 17·21 · Spring Boot · MyBatis · PostgreSQL · MariaDB · OpenSearch · 
 
 ### 이력서 선택 문장 추가
 
-- **KSTV5** 보고서 생성·이력 서비스와 관제 목록을 개선하고 SQL, 중복 실행 방지, 폐쇄망 패치 절차를 보완했습니다. 검증 환경에서 수정 전 타임아웃과 수정 후 완주를 비교했습니다. [제작 원고](reason/kstv5-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials)
-- **IDPP** 폐쇄망 k3s 설치 자동화, GitOps, 스토리지를 구현하고 시험 VM에서 설치·장애를 검증했습니다. 초기 UI·ERD·시험계획 문서도 작성했습니다. [제작 원고](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials)
+- **KSTV5** 보고서 생성·이력 서비스와 관제 목록을 개선하고 SQL, 중복 실행 방지, 폐쇄망 패치 절차를 보완했습니다. 검증 환경에서 수정 전 타임아웃과 수정 후 완주를 비교했습니다. [제작 원고](../fornet/project-kstv5.md#materials)
+- **IDPP** 폐쇄망 k3s 설치 자동화, GitOps, 스토리지를 구현하고 시험 VM에서 설치·장애를 검증했습니다. 초기 UI·ERD·시험계획 문서도 작성했습니다. [제작 원고](../fornet/project-idpp.md#materials)
 
 <a id="star"></a>
 
@@ -800,13 +800,13 @@ KSTV6에서 종합·취약점 보고서를 자동 생성하는 독립 Report Man
 - **상황** 시험 VM에서 Kafka와 OS·Longhorn이 디스크를 공유했고, 부하와 긴 보존 설정이 겹쳐 디스크가 부족해졌다.
 - **과제** Kafka 장애가 MariaDB와 데이터 적재에까지 미친 경로를 찾고 재발 조건을 낮춘다.
 - **행동** 디스크 사용량, Pod 축출, Longhorn 볼륨과 DB 상태를 시간대별로 대조했다. 시험 보존 시간을 줄이고 전용 디스크 필요성을 문서화했다. MariaDB를 단일 인스턴스와 복제 볼륨 구조로 바꿨다.
-- **결과** VM에서 Longhorn 복제 상태를 확인하고 서버 이동 재시험을 남겼다. [상세 사례](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials)
+- **결과** VM에서 Longhorn 복제 상태를 확인하고 서버 이동 재시험을 남겼다. [상세 사례](../fornet/project-idpp.md#materials)
 
 ### KSTV5 보고서 성능 측정과 패치 검증
 
 - **상황·과제** 특정 테스트의 요청이 600초에 종료돼 수정 전후를 같은 조건에서 비교할 필요가 있었다.
 - **행동** 측정 방법과 요청 경로를 점검하고 SQL·패치 변경을 시험 환경에 적용한 뒤 다시 실행했다. 적용과 복구 경로를 설치 담당자가 따라갈 수 있게 문서화했다.
-- **결과** 대상 요청의 3회 완주와 평균 약 6.6분, 패치 재검증 22/22 항목을 시험 자료에 남겼다. [상세 사례](reason/kstv5-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials)
+- **결과** 대상 요청의 3회 완주와 평균 약 6.6분, 패치 재검증 22/22 항목을 시험 자료에 남겼다. [상세 사례](../fornet/project-kstv5.md#materials)
 
 <a id="interview"></a>
 
@@ -1293,7 +1293,7 @@ Control Plane·Agent·Resource Manager
 
 ### k3s에서 Local PV와 Longhorn을 나눈 이유는 무엇인가요?
 
-Kafka·IoTDB는 서버와 디스크를 고정해 정적 Local PV를 사용했습니다. Redis·MariaDB와 관측 서비스는 Longhorn 볼륨으로 구성했습니다. VM 디스크 고갈에서 Kafka, Longhorn, DB의 영향이 이어지는 것을 확인했고 운영 전용 디스크와 재시험 조건까지 기록했습니다. [IDPP 근거](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md)
+Kafka·IoTDB는 서버와 디스크를 고정해 정적 Local PV를 사용했습니다. Redis·MariaDB와 관측 서비스는 Longhorn 볼륨으로 구성했습니다. VM 디스크 고갈에서 Kafka, Longhorn, DB의 영향이 이어지는 것을 확인했고 운영 전용 디스크와 재시험 조건까지 기록했습니다. [IDPP 근거](../fornet/project-idpp.md)
 
 <a id="strategy"></a>
 
@@ -1723,7 +1723,7 @@ SVT·ONEWAY 경험이 있으나 최근 가장 큰 범위는 Java·Spring이다. 
 
 ### Platform과 배포 자동화 직무에 지원할 때
 
-IDPP로 폐쇄망 설치 자산 준비, k3s 부트스트랩, Cilium, GitOps, 상태 저장 서비스 구성과 VM 장애 분석을 설명할 수 있다. 파이프라인 사례에서는 부하 생성과 관측의 책임을, KSTV6 사례에서는 API·인증·보고서 구현 범위를 보강한다. 운영 전면 구축, 온콜 경험, SLA 수치는 확인이 필요하다. [IDPP 원고](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials)
+IDPP로 폐쇄망 설치 자산 준비, k3s 부트스트랩, Cilium, GitOps, 상태 저장 서비스 구성과 VM 장애 분석을 설명할 수 있다. 파이프라인 사례에서는 부하 생성과 관측의 책임을, KSTV6 사례에서는 API·인증·보고서 구현 범위를 보강한다. 운영 전면 구축, 온콜 경험, SLA 수치는 확인이 필요하다. [IDPP 원고](../fornet/project-idpp.md#materials)
 
 <a id="evidence-map"></a>
 
@@ -1739,7 +1739,7 @@ IDPP로 폐쇄망 설치 자산 준비, k3s 부트스트랩, Cilium, GitOps, 상
 |---|---:|---|---|
 | CXL Orchestrator | 211 | 전체 제목·날짜·변경 경로 분류 | 핵심 기능 14개 Patch·현재 Code |
 | SVT Manager | 191 | 전체 제목·날짜·변경 경로 분류 | WPF→WinForms, Protocol, Packet 진단, RDLC |
-| KSTV5 report-mgr·ui-svr | 31+37 | 15개 저장소 author 확인, 본인 68건 날짜·경로 분류 | 보고서 이식·SQL/잠금·관제 목록·로그 출력 대표 Patch와 현행 Code; [상세 근거](reason/kstv5-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) |
+| KSTV5 report-mgr·ui-svr | 31+37 | 15개 저장소 author 확인, 본인 68건 날짜·경로 분류 | 보고서 이식·SQL/잠금·관제 목록·로그 출력 대표 Patch와 현행 Code; [상세 근거](../fornet/project-kstv5.md#evidence) |
 | KSTV6 WebMgr | 372 | 전체 제목·날짜·변경 경로 분류 | Engine API, OpenSearch, 동시성, Dashboard, 비동기 Report |
 | KSTV6 Report Manager | 58/전체 63 | 개인 비병합 57건 | 초기 구축, Jasper, DB 암호화, 감사, 동적 Scheduler |
 | Data Pipeline Tester | 16 | 개인 전체/비병합 16건, 초기 6건은 이전 기록 | Process·Batch·Quota·Kafka·운영 Script |
@@ -2132,27 +2132,27 @@ IDPP로 폐쇄망 설치 자산 준비, k3s 부트스트랩, Cilium, GitOps, 상
 
 #### 9. 원문 상세 문서 연결
 
-- [CXL ENABLER Orchestrator](reason/cxl-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence)
-- [SVT Synchrophasor Verification Tool](reason/svt-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence)
-- [KSTV6 WebMgr·Report Manager·취약점·AI SYSLOG](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence)
-- [AI 관제 Data Pipeline·부하 Generator](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#pipeline)
-- [ONEWAY e-Power Diode](reason/oneway-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence)
-- [ONEWAY 사람인·Figma 제작 소재](reason/oneway-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials)
-- [SCG MDMS·GASDOT](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence)
+- [CXL ENABLER Orchestrator](../fornet/project-cxl.md#evidence)
+- [SVT Synchrophasor Verification Tool](../fornet/project-svt.md#evidence)
+- [KSTV6 WebMgr·Report Manager·취약점·AI SYSLOG](../fornet/project-kstv6.md#evidence)
+- [AI 관제 Data Pipeline·부하 Generator](../fornet/project-kstv6.md#pipeline)
+- [ONEWAY e-Power Diode](../fornet/project-oneway.md#evidence)
+- [ONEWAY 사람인·Figma 제작 소재](../fornet/project-oneway.md#materials)
+- [SCG MDMS·GASDOT](../fornet/project-scg.md#evidence)
 
 #### 2026-11-21 KSTV6 근거 갱신
 
-- 위의 `KSTV6 372·24건`, `Tester 6건`, 프로젝트 합계 `947건`은 **이전 조사 시점의 역사적 스냅샷**이다. 현재 분리 저장소 23개를 다시 조사해 개인 비병합 커밋을 `web-manager-v2` 134건, `rest-api-server-v3` 48건, `report-manager` 57건, 테스터 16건으로 확인했다. 통합·분리 저장소 중복을 제거하지 못해 총합에 가산하지 않는다. [변경별 상세 근거](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#follow-up) · [전수 목록](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#git).
-- CC 인증 문서는 본인이 작성하지 않았고 참고했다. 요구사항을 인증·인가·감사 코드에 반영한 개발은 개인 변경으로 확인된다. Meta 02~05(파이프라인 성능, AI 파싱규칙 검증, 85장 화면설계, 기성검수)는 사용자 확인을 받은 직접 수행/작성 영역이다. 다른 세션의 사람인·Figma 제작은 [별도 원고](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials)를 사용한다.
+- 위의 `KSTV6 372·24건`, `Tester 6건`, 프로젝트 합계 `947건`은 **이전 조사 시점의 역사적 스냅샷**이다. 현재 분리 저장소 23개를 다시 조사해 개인 비병합 커밋을 `web-manager-v2` 134건, `rest-api-server-v3` 48건, `report-manager` 57건, 테스터 16건으로 확인했다. 통합·분리 저장소 중복을 제거하지 못해 총합에 가산하지 않는다. [변경별 상세 근거](../fornet/project-kstv6.md#follow-up) · [전수 목록](../fornet/project-kstv6.md#git).
+- CC 인증 문서는 본인이 작성하지 않았고 참고했다. 요구사항을 인증·인가·감사 코드에 반영한 개발은 개인 변경으로 확인된다. Meta 02~05(파이프라인 성능, AI 파싱규칙 검증, 85장 화면설계, 기성검수)는 사용자 확인을 받은 직접 수행/작성 영역이다. 다른 세션의 사람인·Figma 제작은 [별도 원고](../fornet/project-kstv6.md#materials)를 사용한다.
 
 #### 2026-11-21 SCG 근거 갱신
 
-- 과거 SCG 75건은 2026-01까지의 조사 스냅샷이다. `07. scg` 27개 Git 저장소 재조사 결과 10개 저장소 개인 76건(비병합 71건)이며 2026-11-09 대시보드 알람 기준 표시 UI 1건이 추가됐다. 핵심 개발은 2025-11~2026-01이고 11월 후속 커밋을 연속 투입 기간으로 합치지 않는다. [추가 전수조사](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#follow-up) · [커밋 목록](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#git) · [사람인·Figma 원고](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials).
+- 과거 SCG 75건은 2026-01까지의 조사 스냅샷이다. `07. scg` 27개 Git 저장소 재조사 결과 10개 저장소 개인 76건(비병합 71건)이며 2026-11-09 대시보드 알람 기준 표시 UI 1건이 추가됐다. 핵심 개발은 2025-11~2026-01이고 11월 후속 커밋을 연속 투입 기간으로 합치지 않는다. [추가 전수조사](../fornet/project-scg.md#follow-up) · [커밋 목록](../fornet/project-scg.md#git) · [사람인·Figma 원고](../fornet/project-scg.md#materials).
 - CNU 재수집은 Collector 내부 DB 설정·Mapper 재구성과 시험 성공의 근거가 있으나 외부 API의 간헐적 timeout도 기록돼 있다. CO 이벤트는 현재·정확히 1시간 전 두 시점 비교이며 연속 1시간 유지 판정이 아니다. `03. scg - 개발 및 유지보수`는 사용자 확인을 받은 직접 작업 범위이고 외부 요청서·참고 퍼블리싱 전체를 개인 저작물로 계산하지 않는다.
 
 #### 2026-11-21 IDPP k3s 근거 추가
 
-- [상세 근거 DB](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) · [사람인·Figma 제작 원고](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) · [397건 Git 목록](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#git). 사용자가 직접 작성했다고 확인한 2025년 초기 UI·ERD·총괄시험계획 HWP, 기능개선 PPTX와 2026년 k3s 문서를 별도 시기로 조사했다. k3s 저장소는 개인 Git 397건(2026-10-13~11-10)이고 IDPP 앱 기능 개발은 본인 기여에서 제외한다.
+- [상세 근거 DB](../fornet/project-idpp.md#evidence) · [사람인·Figma 제작 원고](../fornet/project-idpp.md#materials) · [397건 Git 목록](../fornet/project-idpp.md#git). 사용자가 직접 작성했다고 확인한 2025년 초기 UI·ERD·총괄시험계획 HWP, 기능개선 PPTX와 2026년 k3s 문서를 별도 시기로 조사했다. k3s 저장소는 개인 Git 397건(2026-10-13~11-10)이고 IDPP 앱 기능 개발은 본인 기여에서 제외한다.
 - 폐쇄망 설치·GitOps·Local PV/Longhorn·VM 설치/장애 분석이 주력 근거다. 발표자료의 10만 Tag/초 및 운영 20대는 목표/계획이며, 시험 VM의 1만 건/초는 Kafka 디스크 장애 조건이다. 운영 전면 성능 달성으로 전환하지 않는다. 기존 947건은 IDPP 조사 전의 역사적 스냅샷으로 유지하고 단순 가산한 총합을 만들지 않는다.
 
 
@@ -2168,13 +2168,13 @@ IDPP로 폐쇄망 설치 자산 준비, k3s 부트스트랩, Cilium, GitOps, 상
 
 | 프로젝트 | 상세 근거의 현재 상태 | 남겨 둔 증거 경계·보완점 |
 |---|---|---|
-| [CXL](reason/cxl-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 제품 맥락, 기능별 구현, 3회 교차 조사, 코드/커밋, 본인 기여·추가 정량 정보가 상세히 분리돼 있음 | 운영·납품 수치와 사용자 효과는 근거가 없는 만큼 추후 확인. [이직 소재](reason/cxl-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials)와 상세 근거를 함께 사용 |
-| [SVT](reason/svt-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 프로토콜/패킷·PMU·Scenario·진단·Report의 코드 체인과 전수 커밋, 작성자 경계 기록 | 현장 적용 규모·정량 효과는 추가 확인. [이직 소재](reason/svt-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials)만 읽으면 기술적 깊이가 빠짐 |
-| [KSTV5](reason/kstv5-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 보고서 이식·성능·안정성 체인과 사용자 확인을 받은 취약점 BAT·Python, 패치/설치 문서가 추가돼 있음 | 공개 원고의 정량 표현은 시험 환경으로 한정. v6 근거와 섞지 않음. [이직 소재](reason/kstv5-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) 참고 |
-| [KSTV6](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 인증·감사·SQL·OpenSearch·공통 설계·보고서·테스터의 기존 근거와 [추가 전수조사](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#follow-up), [제작 원고](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) 분리 | 통합/분리 저장소 커밋 중복 합산 금지. CC 문서 작성과 코드 반영 구분. 운영 성과 수치 별도 확보 |
-| [SCG](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | NiFi·통계·예방 이벤트·Collector와 [11월 추가 조사](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#follow-up), 개인 커밋 목록·[제작 원고](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) 있음 | 재수집 외부 API timeout, CO 두 시점 판정, 외부 요청서의 저작 경계 명시. 운영 전후 효과 수치 추가 확보 |
-| [ONEWAY](reason/oneway-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 직접 개발 0건을 밝히고 64장 세미나·레거시 분석·시험 메모를 상세히 기록 | 개발 성과 대신 분석·설명 능력으로 활용. 발표일·청중·후속 적용 확인 |
-| [IDPP](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 초기 UI/ERD/시험 설계 문서와 2026년 k3s 설치·GitOps·스토리지·VM 장애를 별도 시기로 깊게 기록; [397건 Git 목록](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#git) 및 [제작 원고](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#materials) | 응용 앱 개발은 개인 기여에서 제외. 10만 Tag/초·20대는 목표/계획, 시험 VM 관찰과 분리 |
+| [CXL](../fornet/project-cxl.md#evidence) | 제품 맥락, 기능별 구현, 3회 교차 조사, 코드/커밋, 본인 기여·추가 정량 정보가 상세히 분리돼 있음 | 운영·납품 수치와 사용자 효과는 근거가 없는 만큼 추후 확인. [이직 소재](../fornet/project-cxl.md#materials)와 상세 근거를 함께 사용 |
+| [SVT](../fornet/project-svt.md#evidence) | 프로토콜/패킷·PMU·Scenario·진단·Report의 코드 체인과 전수 커밋, 작성자 경계 기록 | 현장 적용 규모·정량 효과는 추가 확인. [이직 소재](../fornet/project-svt.md#materials)만 읽으면 기술적 깊이가 빠짐 |
+| [KSTV5](../fornet/project-kstv5.md#evidence) | 보고서 이식·성능·안정성 체인과 사용자 확인을 받은 취약점 BAT·Python, 패치/설치 문서가 추가돼 있음 | 공개 원고의 정량 표현은 시험 환경으로 한정. v6 근거와 섞지 않음. [이직 소재](../fornet/project-kstv5.md#materials) 참고 |
+| [KSTV6](../fornet/project-kstv6.md#evidence) | 인증·감사·SQL·OpenSearch·공통 설계·보고서·테스터의 기존 근거와 [추가 전수조사](../fornet/project-kstv6.md#follow-up), [제작 원고](../fornet/project-kstv6.md#materials) 분리 | 통합/분리 저장소 커밋 중복 합산 금지. CC 문서 작성과 코드 반영 구분. 운영 성과 수치 별도 확보 |
+| [SCG](../fornet/project-scg.md#evidence) | NiFi·통계·예방 이벤트·Collector와 [11월 추가 조사](../fornet/project-scg.md#follow-up), 개인 커밋 목록·[제작 원고](../fornet/project-scg.md#materials) 있음 | 재수집 외부 API timeout, CO 두 시점 판정, 외부 요청서의 저작 경계 명시. 운영 전후 효과 수치 추가 확보 |
+| [ONEWAY](../fornet/project-oneway.md#evidence) | 직접 개발 0건을 밝히고 64장 세미나·레거시 분석·시험 메모를 상세히 기록 | 개발 성과 대신 분석·설명 능력으로 활용. 발표일·청중·후속 적용 확인 |
+| [IDPP](../fornet/project-idpp.md#evidence) | 초기 UI/ERD/시험 설계 문서와 2026년 k3s 설치·GitOps·스토리지·VM 장애를 별도 시기로 깊게 기록; [397건 Git 목록](../fornet/project-idpp.md#git) 및 [제작 원고](../fornet/project-idpp.md#materials) | 응용 앱 개발은 개인 기여에서 제외. 10만 Tag/초·20대는 목표/계획, 시험 VM 관찰과 분리 |
 
 #### 공통 사용법
 
@@ -2201,14 +2201,14 @@ IDPP로 폐쇄망 설치 자산 준비, k3s 부트스트랩, Cilium, GitOps, 상
 
 | 프로젝트 | 이번에 추가 확인한 근거 | 현재 쓸 수 있는 표현 | 아직 확정할 수 없는 것 |
 |---|---|---|---|
-| [CXL](reason/cxl-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 2025-07-07 판 `20250707-1` 운영·설치 DOCX와 25항목 설치 묶음이 같은 package 폴더에 있음. DOCX 마지막 수정자도 박종성, 직접 작성은 사용자 확인 | 버전이 붙은 설치 패키지·운영/설치 설명 자료 준비 | 실제 고객 설치, 배포 대수, 인수·검수 결과, 운영 효과 |
-| [SVT](reason/svt-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 2025-10 `Release_1027.zip`에 setup.exe·SVTSetup.msi, V1.0 사용자/설치 DOCX가 함께 있음. 두 DOCX 마지막 수정자는 다른 사람 | 설치 파일 묶음과 사용 절차 자료 존재. 본인 개발은 2025-06~07 `mgr` Git 근거로 한정 | 매뉴얼 직접 작성, 고객 납품·실설치, 검증 PASS 수, 동시 처리 성능 |
-| [KSTV5](reason/kstv5-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 직접 작업 확인을 받은 취약점 스크립트와 `development/docs`의 시험/패치 자료가 기존 상세 근거에 이미 반영됨. 이번 재대조에서 개인 범위의 새 검수 수치는 확보하지 못함 | 보고서·취약점 스크립트 수정과 특정 검증 환경의 시험 결과 | 전면 납품 승인·오탐률·운영 장비 수 |
-| [KSTV6](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 직접 작성한 2026-06 준공검수 HWP에 42개 고유 시나리오 ID와 다수 화면/로그 증빙, 개요의 합격 체크가 있음. 검수일자·검수자 등과 일부 결과란은 공란. 옆 XLSX는 시험 결과가 아닌 기능점수·예산표 | 검수용 보고서 작성, 시나리오 증빙 취합·정리 | 고객 최종 승인, 모든 케이스 PASS, 예산 규모를 개인 성과로 환산 |
-| [Data Pipeline·Tester](reason/kstv6-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#pipeline) | 직접 작성한 성능시험 원본과 부하 도구 Git의 정량 기록이 기존 상세 근거에 있음. 이번 배포/검수 자료 조사에서 시험 조건을 넘어서는 운영 처리량 증거는 추가되지 않음 | 시험 환경에서 측정한 처리량·누적량과 병렬 부하 도구 | 운영 상시 처리량, 10만 건/초 유지 기간을 무조건 확대 |
-| [SCG](reason/scg-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 본인 이름 개발 결과서의 **공식 사업 기간 2025-10-02~12-31**과 작성자 표기 확인. 개인 Git의 2026-01·11 후속 변경은 별도 | 공식 문서상 사업 기간과 개인 변경 시기 구분, 담당 표+코드에 맞는 업무 범위 | 2026-11까지 연속 투입, 고객 최종 검수·운영 개선률 |
-| [ONEWAY](reason/oneway-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | 64장 세미나 PPTX Office `author=박종성`, 생성 2025-08-19·수정 2025-08-29 | 직접 만든 분석/발표 자료의 저작 및 작업 시점 | 발표 날짜, 청중·후속 활용, 레거시 코드 개발 |
-| [IDPP](reason/idpp-%EA%B2%BD%EB%A0%A5%20%EA%B7%BC%EA%B1%B0.md#evidence) | k3s 문서·Git은 2026-11-10까지의 VM 설치/장애 시험을 뒷받침. 10만 Tag/초는 착수 발표의 목표이며 k3s 개선 문서에도 부하 재시험이 남아 있음 | 폐쇄망 k3s 설계·구현, 시험 VM 검증·장애 분석 | 운영 20대 전면 구축, 10만 Tag/초 실측 달성, 고객 인수 |
+| [CXL](../fornet/project-cxl.md#evidence) | 2025-07-07 판 `20250707-1` 운영·설치 DOCX와 25항목 설치 묶음이 같은 package 폴더에 있음. DOCX 마지막 수정자도 박종성, 직접 작성은 사용자 확인 | 버전이 붙은 설치 패키지·운영/설치 설명 자료 준비 | 실제 고객 설치, 배포 대수, 인수·검수 결과, 운영 효과 |
+| [SVT](../fornet/project-svt.md#evidence) | 2025-10 `Release_1027.zip`에 setup.exe·SVTSetup.msi, V1.0 사용자/설치 DOCX가 함께 있음. 두 DOCX 마지막 수정자는 다른 사람 | 설치 파일 묶음과 사용 절차 자료 존재. 본인 개발은 2025-06~07 `mgr` Git 근거로 한정 | 매뉴얼 직접 작성, 고객 납품·실설치, 검증 PASS 수, 동시 처리 성능 |
+| [KSTV5](../fornet/project-kstv5.md#evidence) | 직접 작업 확인을 받은 취약점 스크립트와 `development/docs`의 시험/패치 자료가 기존 상세 근거에 이미 반영됨. 이번 재대조에서 개인 범위의 새 검수 수치는 확보하지 못함 | 보고서·취약점 스크립트 수정과 특정 검증 환경의 시험 결과 | 전면 납품 승인·오탐률·운영 장비 수 |
+| [KSTV6](../fornet/project-kstv6.md#evidence) | 직접 작성한 2026-06 준공검수 HWP에 42개 고유 시나리오 ID와 다수 화면/로그 증빙, 개요의 합격 체크가 있음. 검수일자·검수자 등과 일부 결과란은 공란. 옆 XLSX는 시험 결과가 아닌 기능점수·예산표 | 검수용 보고서 작성, 시나리오 증빙 취합·정리 | 고객 최종 승인, 모든 케이스 PASS, 예산 규모를 개인 성과로 환산 |
+| [Data Pipeline·Tester](../fornet/project-kstv6.md#pipeline) | 직접 작성한 성능시험 원본과 부하 도구 Git의 정량 기록이 기존 상세 근거에 있음. 이번 배포/검수 자료 조사에서 시험 조건을 넘어서는 운영 처리량 증거는 추가되지 않음 | 시험 환경에서 측정한 처리량·누적량과 병렬 부하 도구 | 운영 상시 처리량, 10만 건/초 유지 기간을 무조건 확대 |
+| [SCG](../fornet/project-scg.md#evidence) | 본인 이름 개발 결과서의 **공식 사업 기간 2025-10-02~12-31**과 작성자 표기 확인. 개인 Git의 2026-01·11 후속 변경은 별도 | 공식 문서상 사업 기간과 개인 변경 시기 구분, 담당 표+코드에 맞는 업무 범위 | 2026-11까지 연속 투입, 고객 최종 검수·운영 개선률 |
+| [ONEWAY](../fornet/project-oneway.md#evidence) | 64장 세미나 PPTX Office `author=박종성`, 생성 2025-08-19·수정 2025-08-29 | 직접 만든 분석/발표 자료의 저작 및 작업 시점 | 발표 날짜, 청중·후속 활용, 레거시 코드 개발 |
+| [IDPP](../fornet/project-idpp.md#evidence) | k3s 문서·Git은 2026-11-10까지의 VM 설치/장애 시험을 뒷받침. 10만 Tag/초는 착수 발표의 목표이며 k3s 개선 문서에도 부하 재시험이 남아 있음 | 폐쇄망 k3s 설계·구현, 시험 VM 검증·장애 분석 | 운영 20대 전면 구축, 10만 Tag/초 실측 달성, 고객 인수 |
 
 #### 수치를 사용할 때의 기준
 

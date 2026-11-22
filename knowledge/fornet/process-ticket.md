@@ -1,0 +1,1093 @@
+# 업무 티켓 기반 경력 소스
+
+> 이전 분석 기록은 Notion 티켓 166개를 기준으로 작성됐다. 같은 문서의 [업무 티켓 링크 목록](#ticket-links)에서 원래 연결을 찾을 수 있다. 개별 티켓의 주장과 시기는 프로젝트 상세 근거로 교차 확인한다.  
+> 작성 목적: 이력서, 경력기술서, 자기소개서, 포트폴리오, 면접 답변의 원천 자료  
+> 작성 원칙: 티켓에서 확인되는 사실과 합리적인 해석을 구분하고, 확인되지 않은 수치·기술·역할은 만들지 않는다.
+
+> 이전 티켓 해석에는 조사 제외 업무와 당시의 해석이 포함돼 있다. 최신 역할·결과는 [루트 README](../../README.md)의 프로젝트별 근거를 기준으로 사용한다.
+
+## 0. 전체 경력 지도
+
+| 프로젝트 | 핵심 업무 | 경력에서 보여주는 역량 |
+|---|---|---|
+| CXL 관리 시스템 | Login, Group, Host, Settings, Script, Transaction Log 페이지 및 API 개발 | 풀스택 개발, 관리 콘솔 설계, 메시징 연동 |
+| SVT 전력 프로토콜 검증 도구 | IEEE C37.118-2005/2011 프레임 분석 UI, PMU·시나리오·리포트·실패정보 기능 | 프로토콜 해석, 동적 데이터 모델링, 데스크톱 UI |
+| KSTV6 보안관제 WebMgr | 공통 기반, 다수 관리 화면, Engine API, OpenSearch, SSE, 보고서, QA | 보안관제 도메인, 풀스택, 레거시 개선, 운영 안정화 |
+| KSTV6/KSTAI 데이터 파이프라인 | Kafka–Fluentd–OpenSearch 테스트 환경, 부하 프로그램, 계획·검증 | 분산 데이터 파이프라인, 성능시험, 관측성 |
+| KSTV5 취약점 점검 | Windows 보안 점검 스크립트와 DB 설명·SQL 수정 및 검증 | 보안 기준 해석, 스크립트 디버깅, 테스트 |
+| MDMS·GASDOT | NiFi Flow 통합, 통계·이벤트·누락 데이터 처리, 운영 반영 | 데이터 엔지니어링, 배치 로직, 데이터 정합성 |
+| ONEWAY 단방향 전송 | GUI/CEM/CEMM/Setup 분석, 제품 설치, File·FTP·DBMS·OPC 시험 | 시스템 분석, 산업 프로토콜, 설치·검증·문서화 |
+| GitLab 인프라 이전 | VM GitLab 백업, NAS 마운트, Docker 복원·업데이트, SSL | 인프라 마이그레이션, 장애 대응, 복구 |
+| 기타 | IDPP2 설계서, MVDC 분석, IDC 조사·장비 재등록 | 설계 문서화, 조사, 운영 지원 |
+
+## 1. 경력 정체성
+
+### 가장 추천하는 포지셔닝
+
+보안·산업 시스템에서 웹 관리 콘솔과 REST API, 프로토콜 분석 UI, 데이터 파이프라인, 배치·운영 환경까지 연결해 개발하고, 레거시와 장애 원인을 데이터 흐름 단위로 추적해 해결하는 풀스택 개발자
+
+### 백엔드 지원용
+
+보안관제와 산업 데이터 환경에서 REST API, OpenSearch 조회, Kafka·NiFi 데이터 흐름, 스케줄러·배치 및 운영 정합성 로직을 개발하고 검증한 백엔드 개발자
+
+### 프론트엔드·풀스택 지원용
+
+복잡한 보안·산업 데이터를 사용자가 이해할 수 있는 관리 화면과 프로토콜 분석 UI로 구현하고, API와 실시간 이벤트·검색·리포트까지 연결해 본 풀스택 개발자
+
+### 문제 해결 강조형
+
+삭제 테이블 종속, 상태 불일치, 대용량 렌더링, 스크립트 오판정, 외부 패키지 저장 실패와 인프라 복원 오류를 재현·분해·검증해 해결해 온 개발자
+
+## 2. 프로젝트 A — CXL 관리 시스템
+
+### 근거 티켓
+
+- 155. D, B, ALL 별 페이지 및 데이터 표기
+- 156. Host 삭제 처리
+- 157. Group으로 runScript 전송
+- 158. Common TNB, DTNB 통일
+- 159. 운영 매뉴얼 작성
+- 160. 설치 매뉴얼 작성
+- 161. Transaction Log Page 개발
+- 162. Script Page 개발
+- 163. Settings Page 개발
+- 164. Host List Page 개발
+- 165. Group Page 개발
+- 166. Login Page 개발
+
+### 프로젝트 개요
+
+CXL 장비 또는 호스트를 관리하는 웹 콘솔에서 로그인부터 Group, Host, Settings, Script, Transaction Log까지 핵심 관리 기능을 API와 화면 단위로 개발했다. CMM-D, CMM-B, ALL 제품 유형에 따라 접근 가능한 페이지와 표시 데이터를 분리하고, Control Plane 및 ActiveMQ와 연계되는 제어 기능도 다뤘다.
+
+### 구체적인 수행 내용
+
+- ActiveMQ 환경을 구성하고 Login API와 Login Page 개발
+- Group API, Group List, Add/Modify Group, Modal 및 GNB/TNB 기본 레이아웃 개발
+- Host API, Host List, Host Info, Set Memory 기능 개발
+- Host 메모리 크기 조절, 스크립트 중지, Demotion 상태 변경 등 관리 동작 구현
+- Settings API와 Settings Page 개발
+- Script API와 Script 목록·등록·수정 화면 개발
+- Transaction Log의 검색과 페이지네이션 기능 개발
+- Host 삭제 요청을 `REQ_CHANGE > hostdelete` 명령으로 Control Plane에 전달하도록 연동하고 MQ 라이브러리 업데이트
+- Group 단위 `runScript` 전송 기능 개발
+- CMM-D, CMM-B, ALL 설정을 전역화하고 제품 유형별 Route, Dashboard, Host, Group 데이터 노출 제어
+- 공통 TNB/DTNB 구조 통일
+- 설치 및 운영 매뉴얼 작성
+
+### 기술적으로 설명할 수 있는 지점
+
+- 화면만 만든 것이 아니라 Login·Group·Host·Settings·Script API까지 함께 개발한 풀스택 범위
+- Host 삭제와 스크립트 실행처럼 외부 Control Plane으로 명령을 전달하는 비동기 연동
+- 설정값에 따라 동일 애플리케이션을 CMM-D, CMM-B, 통합 모드로 동작시키는 제품 변형 관리
+- Host List와 Host Info 간 상태·메모리·스크립트 제어 흐름
+- 검색, 페이지네이션, 유효성 검증 등 운영용 관리 콘솔의 기본 품질
+
+### 이력서용 문장
+
+- CXL 관리 콘솔의 Login, Group, Host, Settings, Script, Transaction Log API와 화면을 개발해 사용자 인증부터 장비 제어·로그 조회까지 이어지는 핵심 관리 흐름 구축
+- Host 삭제 및 Group 단위 스크립트 실행 명령을 메시징 기반 Control Plane과 연동해 웹 콘솔에서 원격 제어가 가능하도록 구현
+- CMM-D·CMM-B·통합 모드별 Route와 데이터 노출 정책을 전역 설정으로 분리해 하나의 코드베이스에서 제품 유형별 UI와 기능을 제공
+- Host 메모리 설정, Demotion 상태, 스크립트 중지 등 복합 제어 화면에 유효성 검사와 상태별 UI를 적용하고 설치·운영 매뉴얼 작성
+
+### 자기소개서 소재
+
+하나의 제품이 배포 형태에 따라 서로 다른 메뉴와 데이터를 보여줘야 했던 경험으로 사용할 수 있다. 화면마다 조건문을 흩뿌리는 대신 제품 유형을 전역 설정으로 관리하고 Route, Dashboard, Host, Group의 노출 정책을 체계적으로 분리했다는 흐름이 좋다.
+
+### 확인하면 좋은 정보
+
+- 실제 프론트엔드·백엔드 기술 스택
+- ActiveMQ 메시지 형식과 응답 처리 방식
+- 직접 개발한 API와 화면 수
+- CMM-D/B/ALL 배포 방식
+
+## 3. 프로젝트 B — SVT 전력 프로토콜 검증 도구
+
+### 근거 티켓
+
+- 132. IEEE 와이어샤크 스타일 샘플 개발
+- 133. IEEE 전체 프레임 수정
+- 134. 전체 폼 로딩 방식 수정
+- 135. 리포트 뷰어 수정
+- 136~138. 시나리오·실패정보 폼 수정
+- 139~144. IEEE 2005/2011 헤더·설정·데이터·공통 프레임 개발
+- 145~148. 실패정보·리포트·IEEE 모달 폼 개발
+- 149~151. PMU·점검이력 폼 수정
+- 154. PMU SVT 실행 명령 및 연동
+
+### 프로젝트 개요
+
+PMU 데이터를 IEEE C37.118-2005/2011 규격에 따라 검증하고 결과를 조회하는 데스크톱 도구를 개발했다. 프로토콜 명세를 읽어 가변 길이 패킷 구조를 객체와 데이터 그리드로 표현하고, 시나리오·PMU 관리, 실패 패킷 분석, 리포트 출력까지 구현했다.
+
+### 프로토콜 프레임 개발
+
+- IEEE 2005/2011의 공통 헤더, 설정 프레임, 데이터 프레임을 프로토콜 정의서 기준으로 객체화
+- 바이트 단순 나열이 아닌 프로토콜 필드와 세부 필드 단위로 데이터 그리드에 매핑
+- `NUM_PMU`, `PHNMR`, `ANNMR`, `DGNMR` 값에 따라 동적으로 반복되는 필드 처리
+- Phasor, Frequency, Analog 형식에 따른 2/4/8 Byte 가변 구조 분기
+- Configuration Format에 의존하는 Data Frame 구조 처리
+- IEEE 2005와 2011의 STAT 등 버전별 차이를 분리 구현
+- 동적으로 달라지는 패킷 크기와 필드 위치를 고려해 설계하고 테스트 케이스로 교차 검증
+
+### 분석 UI 개선
+
+- 사용자가 패킷을 쉽게 읽도록 Wireshark 방식의 필드·길이·세부 필드·유효값·측정값·Binary 측정값 화면 시안 개발
+- 24bit 등 여러 줄로 표현되는 Binary 값을 빈 자리까지 맞춰 시각적으로 정렬
+- 패킷 데이터와 단순 오류 텍스트에 따라 다른 실패정보 화면 제공
+- 버전과 프레임 유형에 따라 IEEE 2005/2011 사용자 컨트롤을 동적으로 선택
+
+### 시나리오·PMU·리포트
+
+- 시나리오 등록·수정·중복 검사·Validation·파싱 오류 건수 처리
+- 시나리오 삭제 시 검증 이력 존재 여부에 따라 연관 프레임 삭제 범위를 달리 처리
+- PMU 등록·수정 시 이름 중복 검사와 TCP/UDP, Any/Specific, Alternate Channel 조건별 UI·저장 로직 구현
+- 자동완성 목록에서 화면 인덱스가 아닌 DB 식별자를 유지하도록 데이터 모델 개선
+- 점검이력 조회 쿼리의 잘못된 PMU 연결 키를 수정하고 삭제된 시나리오·시나리오 없는 모드 처리
+- DB 데이터를 ReportViewer에 매핑하고 Text→JSON 변환, 모드별 항목 제어, 성공·실패 프레임 구조 처리
+- RDLC 파일을 직접 수정해 리포트 디자인·인쇄·다운로드 구현
+- 서로 다른 옵션의 Data Frame을 `ScenarioFrameIdx` 기준으로 그룹화해 보고서에 통합
+- 폼 사전 로딩 및 교체, 상태 유지, 로딩 인디케이터 등 데스크톱 UI 사용성 개선
+
+### 이력서용 문장
+
+- IEEE C37.118-2005/2011 명세를 분석해 PMU 수와 Phasor·Analog·Digital 설정에 따라 길이와 위치가 동적으로 변하는 패킷 프레임을 객체화하고 분석 UI로 구현
+- 패킷의 필드·세부 필드·Byte 길이·Binary 값을 Wireshark 형태로 시각화해 사용자가 실패 데이터를 직접 비교·판단할 수 있는 화면 개발
+- PMU·시나리오·점검이력의 등록·검증·연관 삭제 로직과 실패정보 모달, RDLC 기반 리포트 뷰어를 구현해 검증 결과 조회 흐름 완성
+- 화면 인덱스와 DB 식별자 혼용, 잘못된 연결 키, 옵션 저장 누락, 폼 상태 초기화 문제를 수정해 데이터 정합성과 데스크톱 UI 안정성 개선
+
+### 자기소개서 소재
+
+익숙하지 않은 국제 프로토콜 문서를 읽고 구현한 경험으로 좋다. 명세를 필드 모델로 바꾸고, 설정 프레임에 따라 데이터 프레임의 구조가 달라지는 관계를 코드로 표현했으며, 결과를 전문가가 읽을 수 있는 화면으로 시각화했다는 서사가 핵심이다.
+
+### 확인하면 좋은 정보
+
+- C#/.NET, WinForms, WPF 등 실제 기술
+- 데이터베이스 종류
+- 구현한 프레임 유형과 테스트 케이스 수
+- 한전 요청 또는 납품 결과 중 공개 가능한 범위
+
+## 4. 프로젝트 C — KSTV6 보안관제 WebMgr 재개발
+
+### 근거 티켓
+
+- 32~59. WebMgr QA, 대시보드, 프로세스, 화이트리스트, 보고서, 자원 이력
+- 61~88. 통합시험, AI·보고서·OpenSearch·감사알림·공통 UI 및 업무 화면
+- 90~117. 로그·통계·설비·무결성·장애·사용자·시스템 관리 및 공통 기반
+- 118~122. WebMgr Engine API
+
+### 프로젝트 개요
+
+보안관제 플랫폼 KSTV6의 WebMgr 신규 개발과 KSTV5 기능 이관을 수행했다. 공통 UI 기반부터 보안관제 업무 화면, Engine REST API, OpenSearch 통계, 실시간 감사 이벤트, 보고서 스케줄러, 통합 QA까지 넓은 범위를 다뤘다.
+
+### 공통 UI와 관리 기능
+
+- 내비게이션, 헤더, 메뉴, 서브헤더, 로그인 화면 구성
+- JSON 매핑·캐시 기반 다국어 지원과 팀 적용 가이드 작성
+- 공통 모달, 로딩 인디케이터, 사용자 오류 처리, 테이블 정렬, 스크롤, 엑셀 다운로드 구현
+- 사용자, 접속 IP, 설비군, 설비, 포트, 시스템 설정, 상위 시스템 연동 정보 관리
+- 무결성 대상·점검, 장애 현황·이력, 점검 확인 요청 관리
+- 로그·원시로그 검색, 분석탐지 결과·규칙·통계, 로그 현황 통계, 제어명령 결과 화면
+- CPU·Memory·Disk, Kafka Topic, OpenSearch Index, 감사 임계치를 통합한 시스템 현황 화면
+
+### Engine API와 문서화
+
+- 감사, 설비, 임계치, 서버 CPU·Memory·Disk, 알람, 사용자, 메일 서버, 무결성, 결과, SNMP, 티켓, 버전 등 Engine API 구현
+- 티켓에 명시된 엔드포인트만 기준으로 40여 개 이상의 API 항목 작업
+- alarm, audit, casl, cpu, device, diagnosis, disk, memory, process, proxy, result, server, snmp, statistics, syslog, threshold, users, version 등 Swagger 한글 설명 정비
+- 감사로그 Kafka 전송과 상위 시스템 연동 관련 기능 및 엔진 문서 업데이트
+- UI 서버와 REST API 서버 통합, 공통 오류 처리와 null 방어 보완
+
+### 검색·성능·데이터 처리
+
+- 분석탐지 통계와 로그 현황 통계를 기존 통계 테이블에서 OpenSearch 조회로 전환
+- 조회 변경에 맞춰 엑셀 다운로드와 보고서 데이터 흐름 수정
+- 1만 건 이상 CPU·Memory·Disk 이력을 일괄 렌더링하던 화면을 무한 스크롤 방식으로 개선
+- 차트 객체 반복 생성과 이벤트 재바인딩 문제를 확인하고 초기 생성·갱신 구조로 개선
+- 사용자별 로그 검색 컬럼 저장, 키 기반 페이지네이션, 정렬 토글 등 운영 요구 반영
+- 자원 이력 보관 기간 UI, 파티션 제거, 일 배치 삭제 정책 검토
+
+### 실시간 이벤트와 보고서
+
+- UI·Engine 프로세스에서 발생하는 감사 이벤트를 SSE로 수신
+- 오디오 알림과 헤더 버튼 점멸을 결합해 운영자가 이벤트를 즉시 인지하도록 구현
+- 자동 로그아웃, 토큰 갱신, 감사 알림 흐름 점검
+- 자동 취약점 점검과 일·월 보고서 생성을 위한 cron 프로젝트 및 task pool 구조 개발
+- 종합 보고서와 취약점 보고서 생성 완료 알림 구현
+- 일반·스케줄 보고서별 Jasper 파일과 데이터 누락 문제 분석
+
+### 레거시 QA와 안정화
+
+- 삭제된 `tbl_result` 테이블 종속으로 발생한 쿼리 오류 제거
+- 분석탐지 화면에 이상탐지 데이터가 섞이던 조회 범위 오류 수정
+- 전체 설비와 Agent 설비가 혼용되던 통계·콤보박스 조건 보완
+- null 처리 누락, 공통 API 미사용, 불필요한 JS 종속과 콘솔 오류 정리
+- 프로세스 실행 상태 불일치와 KSTV5 대비 누락 프로세스 항목 보완
+- 화이트리스트 프로그램·프로세스 중복 검증, 신뢰 여부, 설명 동기화, Engine 연계 누락 보완
+- 문자열 `비인가` 하드코딩 대신 `RULE_CLASS=CONTROL` 조건 사용
+- 설비 프로세스 현황의 삭제 테이블 종속과 혼재된 로직을 재개발
+- 목록 복귀 시 검색·페이지 파라미터를 유지하도록 공통 처리
+- UI·서버·Engine을 분리 점검해 수동 프로세스 STOP 오류의 원인 범위를 서버 로직으로 축소
+- 356개 항목 규모의 통합시험계획 작성 및 전체 기능 QA 수행
+
+### 이력서용 대표 문장
+
+- 보안관제 WebMgr의 공통 UI와 사용자·설비·로그·분석탐지·무결성·장애·시스템 관리 기능을 개발해 KSTV6 웹 관리 콘솔 구축에 기여
+- 감사·설비·서버 자원·알람·사용자·무결성·SNMP 등 Engine REST API 40여 개 항목을 구현하고 20여 개 도메인의 Swagger 문서를 정비
+- 분석탐지·로그 통계를 OpenSearch 기반으로 전환하고 엑셀·보고서 조회를 함께 수정해 검색 데이터와 산출물 간 일관성 확보
+- 1만 건 이상 설비 자원 이력 화면을 무한 스크롤 방식으로 개선하고 차트 갱신 구조를 정리해 장시간 모니터링 화면의 렌더링 부담 완화
+- SSE 기반 감사 이벤트를 화면·오디오·헤더 상태로 전달하고 자동 보고서 스케줄링을 구현해 운영 알림과 비동기 작업 흐름 보완
+- KSTV5/V6 비교 QA를 통해 삭제 테이블 종속, 하드코딩, 상태 불일치, 중복 검증 누락 등 구조적 오류를 식별·개선
+
+### 자기소개서 핵심 소재
+
+“화면 오류를 고친 경험”이 아니라 “레거시 이관 과정에서 반복되는 구조적 결함을 찾아 공통 기반과 재개발로 해결한 경험”으로 쓴다. V5/V6 비교 → 오류 유형 분류 → 단순 오류 수정 → 반복 기능 공통화 → 누적 문제 영역 재개발 순서가 좋다.
+
+### 과장하지 말아야 할 부분
+
+- 플랫폼 전체를 단독 개발했다고 표현하지 않는다.
+- 인증 시스템 전체 설계로 확대하지 않는다. 토큰 갱신 일부는 임시 처리 기록이 있다.
+- OpenSearch 클러스터 아키텍처 설계라고 쓰지 않는다. WebMgr에서는 조회 전환이 확인된다.
+- 실제 개선 수치가 없으면 “몇 배 개선”이라고 쓰지 않는다.
+
+## 5. 프로젝트 D — KSTV6/KSTAI 데이터 파이프라인 성능시험
+
+### 근거 티켓
+
+- 6. 데이터 파이프라인 테스트 진행
+- 7. 데이터 파이프라인 테스트 환경 구성
+- 8. 데이터 파이프라인 테스트 계획서 작성
+- 11. 데이터 파이프라인 테스트 프로그램 개발
+
+### 프로젝트 개요
+
+실제 운영 환경에 가까운 대량 SYSLOG 데이터를 Kafka Cluster에 입력하고 OpenSearch까지 전달되는 데이터 파이프라인의 성능을 검증하기 위해 테스트 계획, 환경, 데이터 생성 프로그램과 관측 환경을 준비했다.
+
+### 수행 내용
+
+- 테스트 목적·목표·서버 사양·도구·아키텍처·성능시험 종류·시나리오·결과 양식을 포함한 계획서 작성
+- 실제 운영 형태로 데이터를 입력할 기존 도구가 없어 별도 테스트 프로그램 개발
+- 단일·다중 Topic, 초당 전송량, Thread/Bulk/JMeter 입력 방식을 비교 검토
+- 1억 건 규모 데이터 입력 가능성을 고려한 시험 환경 설계
+- Kafka 3 Node KRaft Cluster 구성
+- OpenSearch Master/Coordinator 1 Node, Data 2 Node Cluster 구성
+- Kafka와 OpenSearch 사이의 중간 수집기로 Fluentd 검토·구성
+- Kafka JMX Exporter, Prometheus, Grafana, OpenSearch Dashboard를 이용한 지표 수집 환경 구성
+- 실제 KST 중간 프로세스인 `eventinsertmgr` 사용 여부와 오픈소스 수집기 방식을 비교
+- 누적 건수별 Query 조회와 예측하지 못한 오류 수정 기간을 포함해 테스트 수행 계획 수립
+
+### 이력서용 문장
+
+- Kafka 3 Node–Fluentd–OpenSearch 3 Node로 이어지는 데이터 파이프라인 시험 환경을 구성하고 Prometheus·Grafana·JMX Exporter 기반 관측 환경 마련
+- 실제 운영 형태의 대량 SYSLOG를 생성·전송하는 테스트 프로그램을 개발하고 Thread·Bulk·JMeter 방식과 Topic 분산 전략을 비교
+- 최대 1억 건 규모를 고려해 부하 입력, 누적 건수별 조회, 성능 지표와 결과 양식을 포함한 테스트 계획 수립
+
+### 자기소개서 소재
+
+요구사항이 “대량 데이터를 넣어 테스트” 정도로 모호했을 때, 전송 위치·초당 건수·Topic 수·데이터 형식·총량·중간 수집기·측정 지표를 질문 목록으로 바꾸고 시험 가능한 구조로 구체화한 경험으로 사용한다.
+
+### 확인하면 좋은 수치
+
+- 실제 입력한 총 건수와 초당 처리량
+- Kafka/OpenSearch Node 사양
+- 측정한 지표와 병목
+- 테스트 결과 및 후속 개선
+
+## 6. 프로젝트 E — KSTAI AI SYSLOG 파싱 규칙
+
+### 근거 티켓
+
+- 48. AI 파싱규칙 SSE 제거, DB Polling
+- 65. AI 파싱규칙·이상탐지 수정
+- 70. AI 이상탐지
+- 76. AI 파싱규칙 개발 지원
+- 89. AI SYSLOG 파싱규칙 장비 추가 지원
+- 123. AI 보안관제 SYSLOG 환경 구성
+- 관련 티켓: AI 파싱규칙 4차 검증 환경·결과 보고는 MDMS/GASDOT 인접 업무 기록에 포함
+
+### 프로젝트 개요
+
+미등록 SYSLOG로부터 AI 파싱 규칙을 생성하고 WebMgr에서 확인·수정·등록한 뒤 정규화 로그까지 검증하는 흐름을 지원했다. 외부 AI 패키지 설치와 DB 저장 장애 분석, 관리 UI 및 권한·조회 기능을 다뤘다.
+
+### 수행 내용
+
+- 솔비트 AI 패키지 설치 및 테스트 환경 설정
+- 미등록 장비 로그 적재 → AI 생성기 실행 → 규칙 확인·수정 → SYSLOG 규칙 등록 → `syslogRecv` 재시작 → 정규화 로그 확인의 관통 테스트
+- 규칙 생성 성공 로그는 출력되지만 DB에 저장되지 않는 문제 발견
+- DB 설정을 검토하고 누락된 `ai_*` 테이블 스키마를 적용해 원인 범위 축소
+- 내부 담당자와 외부 공급사에 증상과 진행 이력을 전달해 패키지 문제 해결
+- SSE 방식 제거 후 DB Polling 방식으로 규칙 확인
+- AI 설비군·AI Log·AI Rule CRUD, 장비 추가, 목록·상세·상세 검색 기능 지원
+- 사용자별 화면 권한 적용 및 API 접근 제어 담당자와 역할 분담
+- 검증 결과 보고서 작성
+
+### 이력서용 문장
+
+- AI SYSLOG 규칙 생성부터 DB 저장, 규칙 등록, 수신 프로세스 재시작, 정규화 로그 적재까지 E2E 검증 시나리오 수행
+- 외부 AI 패키지의 스키마 누락과 DB 저장 실패를 로그·설정·DB 단계로 분리 분석하고 공급사 협업을 통해 해결
+- AI 설비군·로그·규칙 CRUD와 장비 추가·상세 검색·권한 적용 기능을 개발해 운영 관리 흐름 보완
+
+### 과장하지 말아야 할 부분
+
+AI 모델 자체를 개발하거나 학습했다고 쓰면 안 된다. 확인되는 범위는 AI 파싱 규칙 생성 패키지의 환경 구축·연동·관리 기능·검증이다.
+
+## 7. 프로젝트 F — KSTV5 Windows 취약점 점검 스크립트
+
+### 근거 티켓
+
+- 9. PC-4
+- 12~16. W-76, W-70, W-21, W-18, W-29
+- 18~21. W-49, W-72, W-62, 스크립트 설명·DB SQL
+- 24~25. W-63, W-64
+- 36. KSTV6에서 Windows Server·PC 스크립트 검증
+- 125~131. W-82, W-27, W-24, W-78, W-74, W-79, W-26
+
+### 프로젝트 개요
+
+Windows PC와 Server의 보안 취약점 점검 기준에 맞춰 Batch Script와 DB의 점검 설명·SQL을 수정하고 정상·취약 환경에서 결과를 검증했다. 단독 실행 시에는 정상이나 제품을 통한 실행에서는 값이 비거나 모든 경우가 취약으로 나오는 통합 문제도 분석했다.
+
+### 수행 내용
+
+- W-18, W-21, W-24, W-26, W-27, W-29, W-49, W-62, W-63, W-64, W-70, W-72, W-74, W-76, W-78, W-79, W-82 및 PC-4 항목 작업
+- DNS Zone Transfer의 `SecureSecondaries` 값 0/1/2/3에 따른 판정 조건 분석
+- Windows 10에는 DNS Server Service가 없고 Windows Server에만 존재하는 환경 차이 반영
+- DNS Service 미사용 상태에서 53 Port Open 여부에 따른 취약 판정 검토
+- IIS `appcmd`의 실제 Section 목록을 확인해 존재하지 않는 경로를 사용하는 점검 명령 수정
+- 정상·취약 설정을 각각 구성해 Batch 단독 실행과 제품 통합 실행 결과 비교
+- 스크립트 단독 실행 결과와 취약점 점검 시스템 결과가 다르게 나오는 문제 추적
+- 2023→2024 보안 기준 변경에 맞춰 설명과 Script DB Update SQL 수정
+- 특수문자와 따옴표로 SQL 오류가 발생하는 문제를 `mysqldump` 옵션과 정규식 변환으로 처리
+
+### 이력서용 문장
+
+- Windows 보안 점검 17개 내외 항목의 Batch Script와 판정 기준을 분석·수정하고 PC·Server 정상/취약 환경에서 교차 검증
+- DNS Zone Transfer, Port, IIS Authentication 등 OS·Service 설정값을 기준으로 보안 판정 로직을 보완
+- Script 단독 실행과 제품 통합 실행 결과가 달라지는 문제를 실행 환경과 결과 전달 단계로 분리해 분석
+- 보안 기준 연도 변경에 맞춰 DB 설명·SQL을 갱신하고 특수문자로 인한 Dump/Update 오류 해결
+
+### 자기소개서 소재
+
+“스크립트가 정상인데 제품에서는 실패한다”는 현상을 단순 스크립트 오류로 단정하지 않고, 실행 계정·환경·출력 전달·DB 결과까지 구간을 나눠 본 경험으로 쓸 수 있다. OS별 Service 차이를 테스트 환경으로 직접 확인한 점도 좋다.
+
+### 확인하면 좋은 정보
+
+- 최종 수정 완료 항목 수
+- 사용한 Windows Server/Client 버전
+- 취약점 기준의 공식 명칭
+- 실제 납품·배포 결과
+
+## 8. 프로젝트 G — MDMS·GASDOT 데이터 처리
+
+### 근거 티켓
+
+- 1~4. MDMS NiFi Flow 분석·통합·로컬·개발 서버 테스트
+- 5. 통합 대시보드 개발 환경
+- 124. 이벤트 통계 생성 로직 운영 반영
+- 기존 100개 목록에 포함됐던 MDMS/GASDOT 이벤트 통계, 배치 수집, 프로젝트 공유 문서, 통합 대시보드 운영 반영 업무
+
+### 8.1 NiFi Flow 통합
+
+- NiFi Flow 작동 원리와 사용 방법 분석
+- GMTR, EMTR, EVENT Flow를 통합 테이블 구조에 맞게 수정
+- GMTR 9개, EMTR 7개, EVENT 2개 원천 테이블의 Dummy Data를 입력하고 통합 Raw Table 결과 비교
+- 로컬 검증이 끝난 Flow를 개발/Test 망에서 재검증
+- 운영 Flow에 영향을 주지 않도록 `-test` Config를 별도 생성하고 Test DB 연결
+- `GenerateTableFetch`의 Maximum Value Column과 State 동작 분석
+- 기존 최대값 이전 Row를 다시 읽을 때 `initial.maxvalue.SEQ_NUM`과 Processor State 우선순위를 고려
+- 운영 반영 매뉴얼 작성
+
+### 8.2 예방 CO 이벤트 기준 개선
+
+- 15분 주기 PLC Data에서 단일 임계치 충족만으로 예방 이벤트가 과다 생성되는 문제 분석
+- 예방 CO 45~49ppm이 60분 이상 유지될 때만 Event를 생성하도록 과거 60분 Data 조회 조건 반영
+- 동일 구간의 중복 예방 이벤트 생성 억제
+- Source 수정 및 운영 Server 반영
+
+### 8.3 누락 데이터 재수집
+
+- CNU에서 GASDOT으로 Data가 장기간 유입되지 않았을 때 재요청·수집하는 기존 로직 분석
+- CNU API 상태 확인
+- 별도 Test Program을 개발해 문제 재현 및 원인 구간 확인
+- 오류 파악 후 개선 Program 개발 및 Test
+
+### 8.4 통계 정합성
+
+- MDMS와 GASDOT의 검침·이벤트 통계 생성 흐름 비교
+- `COMM_NUM`, `MTR_NUM`, `GASDOT_ID_NUM`의 의미와 Join Key 차이 분석
+- 일·시간·월 통계 및 Event 통계 변경 영향 범위 식별
+- MDMSAPI, MDMSWEB, MISTOMDMS, GASDOT 개발 환경과 기능 분석
+
+### 이력서용 문장
+
+- GMTR 9개·EMTR 7개·EVENT 2개 원천 테이블을 통합하는 NiFi Flow를 수정하고 Dummy Data 기반 로컬·개발 환경 검증 수행
+- NiFi `GenerateTableFetch`의 Maximum Value와 State 동작을 분석해 이전 구간 재수집 시 데이터 누락을 방지하고 운영 반영 절차 문서화
+- 예방 CO Event에 현재값과 정확히 1시간 전 동일 장비 값의 비교 조건을 추가하고 동일 구간 중복 생성을 억제해 불필요한 Event 감소 기반 마련
+- 외부 API Data 누락 상황을 Test Program으로 재현하고 수집 구간의 장애 원인을 분석해 재수집 로직 개선
+- MDMS와 GASDOT 통계 Batch의 Join Key를 비교해 통신번호와 계량기번호 간 데이터 정합성 위험 식별
+
+### 자기소개서 소재
+
+NiFi State가 Dynamic Property보다 우선해 과거 Row가 누락될 수 있는 점을 발견하고, 단순 WHERE 변경이 아니라 Processor 재생성과 초기 최대값 설정이 필요하다고 정리한 경험은 데이터 파이프라인 이해를 보여준다.
+
+### 확인하면 좋은 수치
+
+- 하루 처리량과 Flow 수
+- 예방 이벤트 감소량
+- 재수집 건수와 장애 시간
+- 운영 반영 후 오류 여부
+
+## 9. 프로젝트 H — ONEWAY 단방향 전송 솔루션
+
+### 근거 티켓
+
+- 17. 단방향 솔루션 세미나
+- 22. 구버전 제품 설치
+- 23. File 전송 테스트
+- 26. Setup 프로젝트 분석
+- 27. 신버전 제품 설치·동작 확인
+- 28. OPC DA 전송 테스트
+- 29~31. CEMM, CEM, GUI 분석
+
+### 프로젝트 개요
+
+단방향 전송 제품의 구·신버전을 VM에 설치하고 GUI, CEM, CEMM, DPE, DTE, Setup 프로젝트 구조를 분석했다. File, FTP, DBMS, OPC UA/DA, Application 전송을 검증하고 분석 결과와 설치 과정을 문서·세미나로 공유했다.
+
+### 수행 내용
+
+- 구버전 SBOX/PBOX와 신버전 ePower Diode 설치
+- TX/RX 환경 구성 및 FTP, DBMS, OPC UA, OPC DA, Application 전송 테스트
+- File 및 OPC DA 전송 환경·절차 정리
+- UI 프로젝트인 GUI와 API Server인 CEM을 함께 분석
+- CEM Process 상태를 감시하는 CEMM 구조 분석
+- GUI, CEM, CEMM, DPE, DTE를 통합하는 Setup Project 생성 흐름과 설정 방법 분석·문서화
+- ePower Diode 세미나 문서 작성 및 발표
+
+### 이력서용 문장
+
+- 단방향 전송 솔루션의 구·신버전을 VM에 구축하고 File·FTP·DBMS·OPC UA/DA·Application 전송을 End-to-End 검증
+- GUI–CEM API Server–CEMM Process Monitor와 DPE/DTE 구성요소를 분석하고 통합 Setup 생성 절차 문서화
+- 제품 구조와 전송 시험 결과를 세미나 자료로 작성·발표해 팀 내 기술 이해도 향상에 기여
+
+### 확인하면 좋은 정보
+
+- 실제 산업 분야와 고객 공개 가능 범위
+- 전송 성공 기준과 테스트 케이스 수
+- 사용 OS와 설치 기술
+
+## 10. 프로젝트 I — GitLab VM→NAS Migration
+
+### 근거 티켓
+
+- 152~153. VM GitLab to NAS GitLab
+
+### 수행 내용
+
+- 기존 VM GitLab Backup 생성
+- VM 용량 부족 문제를 해결하기 위해 NFS NAS Disk Mount
+- 기본 설치와 Docker GitLab Restore 방식을 검토
+- Docker Restore 중 원인 불명 오류 발생 후 동일 환경의 새 VM 구성
+- GitLab Version을 단계적으로 Update하고 최신 Docker Image로 Migration
+- NAS 인증서를 적용해 SSL 설정
+- 복구 Script와 절차 정리
+
+### 이력서용 문장
+
+- VM GitLab의 Backup을 NAS 기반 Docker GitLab로 Migration하며 용량 부족, Version Compatibility, Restore 오류와 SSL 설정 문제 해결
+- NFS NAS Mount와 동일 Version 복구 환경을 구성한 뒤 단계적 Upgrade를 거쳐 최신 Docker Image로 이전
+
+### 자기소개서 소재
+
+복원 오류가 발생했을 때 최신 Version으로 바로 올리지 않고, 동일 환경에서 먼저 Restore한 뒤 Version을 단계적으로 Update한 판단을 중심으로 쓴다. Data 복구 작업에서 호환성과 되돌릴 수 있는 절차를 우선한 경험이다.
+
+## 11. 기타 프로젝트와 지원 업무
+
+### IDPP2 추가 개발 설계 문서
+
+- 사용자 Interface 설계서
+- Entity Model 기술서
+- 총괄 시험 계획서
+
+이력서 문장:
+
+- 추가 개발 범위의 UI·Entity Model·총괄시험계획서를 작성해 구현 전 Interface와 검증 기준 명확화
+
+### MVDC 업무 분석
+
+티켓 본문이 Template 수준이라 구체적인 성과로 사용하기 어렵다. 실제 분석 결과 문서가 있다면 보완한다.
+
+### IDC 이전과 운영 지원
+
+- KSTV6 IDC 이전에 따라 SYSLOG·AGENT Test 장비 재등록
+- IDC Center Colocation 견적 조사
+
+이력서에서는 핵심 개발 프로젝트보다 “운영 환경 이전 지원” 정도로 짧게 사용한다.
+
+## 12. 프로젝트별 이력서 압축본
+
+### CXL
+
+- 관리 콘솔의 Login, Group, Host, Settings, Script, Transaction Log API와 화면 개발
+- ActiveMQ·Control Plane과 연동한 Host 삭제 및 Group Script 실행 기능 구현
+- CMM-D/B/ALL 제품 모드별 Route·Dashboard·Host·Group 노출 정책 분리
+
+### SVT
+
+- IEEE C37.118-2005/2011 가변 패킷 구조를 명세 기반으로 객체화하고 분석 UI 구현
+- PMU·시나리오·점검이력·실패정보와 RDLC 리포트 기능 개발
+- Binary Field를 Wireshark 방식으로 시각화하고 버전·프레임별 동적 UI 구성
+
+### KSTV6 WebMgr
+
+- 보안관제 WebMgr 공통 기반, 업무 화면, Engine API, OpenSearch 통계, SSE 알림 개발
+- 40여 개 API 항목과 20여 개 Swagger Domain 문서 정비
+- 1만 건 이상 Resource History 무한 Scroll, 공통 Excel·다국어·Error Handling 구현
+- 356개 통합시험 범위 작성 및 레거시 구조 오류 개선
+
+### 데이터 파이프라인
+
+- Kafka–Fluentd–OpenSearch Cluster와 Prometheus·Grafana 관측 환경 구성
+- 대량 SYSLOG Test Program과 최대 1억 건 규모 성능시험 계획 작성
+
+### 취약점 점검
+
+- Windows 보안 점검 Script 17개 내외 항목 분석·수정·정상/취약 교차 Test
+- DNS, IIS, Service, Port 조건과 DB 설명·SQL 갱신
+
+### MDMS·GASDOT
+
+- NiFi Flow 통합과 18개 원천 Table Dummy Data Test
+- 예방 CO 현재값·1시간 전 시점 비교 조건 및 누락 Data 재수집 Logic 개선
+
+### ONEWAY
+
+- 단방향 솔루션 구·신버전 설치와 File·FTP·DBMS·OPC UA/DA 전송 검증
+- GUI·CEM·CEMM·DPE·DTE 및 통합 Setup 구조 분석·문서화
+
+### GitLab
+
+- VM GitLab을 NFS NAS 기반 Docker 환경으로 Backup·Restore·단계적 Upgrade·SSL Migration
+
+## 13. 자기소개서 소재 우선순위
+
+### 1순위 — 국제 프로토콜을 제품 기능으로 바꾼 경험
+
+SVT 프로젝트를 사용한다. 낯선 IEEE 문서를 읽고 가변 패킷을 모델링했으며, 설정 프레임 의존성을 코드에 반영하고, 사용자가 판단할 수 있는 Wireshark형 UI와 리포트로 연결했다.
+
+### 2순위 — 레거시의 구조적 결함을 개선한 경험
+
+KSTV6를 사용한다. V5/V6 비교를 통해 삭제 Table 종속, 하드코딩, 상태 불일치, 중복 검증 누락을 분류하고 공통 기능과 재개발로 해결했다.
+
+### 3순위 — 모호한 성능시험을 구체화한 경험
+
+데이터 파이프라인을 사용한다. 입력량, Topic, 전송 방식, 중간 수집기, Cluster, 관측 지표를 질문과 선택지로 구체화하고 Test Program·환경·계획으로 만들었다.
+
+### 4순위 — 외부 패키지 장애를 협업으로 해결한 경험
+
+AI SYSLOG를 사용한다. 생성 Log 성공과 DB 저장 실패 사이를 단계별로 분리하고 Schema 누락을 찾은 뒤 공급사와 해결했다.
+
+### 5순위 — 업무 규칙을 데이터 조건으로 현실화한 경험
+
+예방 CO Event를 사용한다. 단일 시점의 임계치뿐 아니라 정확히 1시간 전 동일 장비의 값도 확인하도록 보완해 불필요한 Event 감소 기반을 마련했다. 실제 감소율은 자료가 없어 정량화하지 않는다.
+
+### 6순위 — 인프라 복구의 안전한 순서를 선택한 경험
+
+GitLab Migration을 사용한다. Restore 오류 이후 동일 Version 복구→단계적 Upgrade→최신 Image 이전 순서를 택한 경험이다.
+
+## 14. 자기소개서 초안
+
+### 낯선 기술을 구조화하는 방식
+
+저는 낯선 기술을 접했을 때 문서를 읽는 데서 멈추지 않고, 데이터 구조와 사용자의 판단 흐름으로 바꾸어 이해합니다. 전력 프로토콜 검증 도구를 개발할 때 IEEE C37.118-2005/2011 명세에 따라 PMU 수와 Phasor·Analog·Digital 설정별로 길이가 달라지는 패킷을 화면에 표현해야 했습니다. 먼저 공통 헤더, 설정 프레임, 데이터 프레임을 객체로 분리하고, 설정 프레임의 Format 값이 데이터 프레임의 Byte 구조를 결정하도록 관계를 모델링했습니다. 이후 필드명과 Byte 길이, 세부 필드, 측정값과 Binary 값을 Wireshark 형태로 보여주는 화면을 만들고 정상·비정상 Test Case로 교차 검증했습니다. 이 경험을 통해 복잡한 명세도 입력·규칙·출력의 관계로 나누면 구현 가능한 구조가 되며, 좋은 개발은 기술적으로 맞는 결과를 사용자가 해석할 수 있는 형태까지 전달하는 일임을 배웠습니다.
+
+### 반복되는 오류의 구조를 찾는 방식
+
+KSTV6 WebMgr를 개발할 때 일부 기능은 KSTV5 Source를 그대로 옮겼거나 미완성 상태였고, 이미 삭제된 Table을 조회하거나 문자열 조건을 Hard Coding하는 문제, 화면과 실제 Process 상태가 일치하지 않는 문제가 함께 존재했습니다. 저는 V5와 V6의 화면·API·Query·Engine 동작을 비교해 오류를 조회, 상태, 검증, 공통 처리 영역으로 분류했습니다. 단순 결함은 수정하되 여러 메뉴에 반복되는 Excel Download, Loading, Error Handling, 다국어, Table 동작은 공통 구조로 정리했습니다. 특히 White List와 설비 Process 현황은 중복 검증과 Engine 연계까지 누락되어 있어 부분 수정 대신 재개발했습니다. 이 경험 이후 저는 오류 한 건을 해결할 때도 같은 원인이 다른 화면에 반복되는지 확인하고, 국소 수정과 구조 개선의 경계를 판단하는 습관을 갖게 됐습니다.
+
+### 불명확한 요구를 시험 가능한 계획으로 바꾸는 방식
+
+대량 데이터 파이프라인 Test 업무는 처음에 “Kafka에 많은 데이터를 넣고 OpenSearch 성능을 확인한다”는 수준으로 주어졌습니다. 그대로 시작하면 결과를 비교할 기준이 없다고 판단해 전송 위치, 초당 건수, Topic 수, 데이터 형식, 총량, 중간 수집기와 측정 지표를 확인 항목으로 정리했습니다. Thread·Bulk·JMeter 입력 방식을 비교하고, Kafka 3 Node와 OpenSearch 3 Node, Fluentd, JMX Exporter, Prometheus, Grafana로 시험·관측 환경을 설계했습니다. 실제 운영 형태의 입력 도구가 없어 별도 Test Program도 개발했습니다. 저는 이 경험을 통해 불명확한 요구사항 앞에서는 바로 코딩하기보다 성공 조건과 관측 방법을 먼저 세우는 것이 더 빠른 해결책이라는 것을 배웠습니다.
+
+## 15. 기술 키워드
+
+### 티켓에서 직접 확인되는 기술·개념
+
+- REST API, Swagger
+- Kafka, KRaft, Kafka JMX Exporter
+- OpenSearch, OpenSearch Dashboard
+- Fluentd, Fluent Bit
+- Prometheus, Grafana
+- Apache NiFi, GenerateTableFetch
+- SSE, Polling
+- ActiveMQ, Control Plane, MQ Library
+- Jasper Report, RDLC, ReportViewer
+- Docker, GitLab, NFS, NAS, SSL
+- SYSLOG, SNMP, Audit Log, Vulnerability Assessment
+- IEEE C37.118-2005/2011, PMU, OPC UA, OPC DA
+- JSON, Cache, Excel Download, Pagination, Infinite Scroll
+- Windows Batch, IIS, DNS Server, Port, MySQL Dump
+
+### 반드시 사실 확인 후 추가할 기술
+
+- 언어: Java, C#, JavaScript 등
+- Backend Framework: Spring Boot 등
+- Frontend Framework: Vue, React 등
+- Desktop Framework: WinForms, WPF 등
+- DBMS와 Version
+- ORM 또는 SQL Mapper
+- CI/CD와 형상관리 방식
+
+티켓 정황만 보고 위 기술을 확정해서 쓰지 않는다.
+
+## 16. 정량화 체크리스트
+
+다음 수치를 확보하면 이력서의 질이 크게 좋아진다.
+
+1. CXL에서 직접 개발한 API·페이지 수
+2. SVT에서 지원한 Frame 유형과 Test Case 수
+3. KSTV6에서 직접 개발·수정한 화면 수
+4. KSTV6 API의 정확한 수와 본인 기여율
+5. 1만 건 화면의 개선 전후 Loading Time·Memory
+6. 데이터 파이프라인 실제 입력 건수, TPS, 조회 응답시간
+7. 취약점 Script 최종 완료 항목 수
+8. NiFi Flow 일 처리량과 Test Row 수
+9. 예방 CO Event 변경 전후 발생 건수
+10. 누락 Data 재수집 건수
+11. GitLab Repository·사용자·Data 용량과 중단 시간
+12. 실제 운영·납품 반영된 프로젝트와 시점
+
+## 17. 면접 예상 질문
+
+### CXL
+
+- 제품 모드별 기능 노출을 어떤 구조로 분리했는가?
+- Host 삭제 명령의 요청·응답·실패 처리는 어떻게 했는가?
+- Group 단위 Script 실행 시 일부 Host 실패를 어떻게 처리했는가?
+
+### SVT
+
+- IEEE 2005와 2011의 주요 차이는 무엇이었나?
+- 동적 Byte 길이와 Field 위치를 어떤 자료구조로 표현했나?
+- WinForms와 WPF를 함께 사용했다면 경계와 이유는 무엇인가?
+- ReportViewer와 RDLC의 복잡한 데이터 구조를 어떻게 처리했나?
+
+### KSTV6
+
+- OpenSearch 전환 전후 조회 구조는 어떻게 달라졌나?
+- SSE를 선택한 이유와 재연결·오류 처리는?
+- 삭제 Table 종속을 어떻게 발견했나?
+- 공통 기능의 추상화 범위를 어떤 기준으로 정했나?
+
+### 데이터 파이프라인
+
+- 1억 건 Test에서 어떤 지표를 측정했나?
+- Kafka Topic과 Partition 전략은?
+- Fluentd와 다른 수집기를 비교한 기준은?
+- 병목을 Producer, Kafka, 수집기, OpenSearch 중 어떻게 구분했나?
+
+### 취약점 점검
+
+- Script 단독 실행과 제품 실행 결과가 다른 이유는 무엇이었나?
+- 정상·취약 Test 환경을 어떻게 구성했나?
+- OS Version과 Service 유무 차이를 어떻게 반영했나?
+
+### MDMS·GASDOT
+
+- NiFi State 때문에 누락이 생기는 원리를 설명할 수 있는가?
+- 예방 CO의 현재값과 정확히 1시간 전 값을 비교하는 Query를 어떻게 구성했나?
+- 통신번호와 계량기번호 중 올바른 Join Key를 어떻게 판단했나?
+
+### GitLab
+
+- Backup/Restore 중 오류가 났을 때 데이터 안전성을 어떻게 확보했나?
+- Version Upgrade 순서를 어떻게 결정했나?
+- 실제 Service 중단 시간을 어떻게 관리했나?
+
+## 18. 이력서에서 피해야 할 과장
+
+- “모든 프로젝트를 단독 개발” — 팀 규모와 역할이 확인되지 않았다.
+- “AI 모델 개발” — AI Parsing Rule Package의 관리·연동·검증이다.
+- “Kafka/OpenSearch 운영 Architecture 전체 설계” — Test 환경 설계·구성이 확인된다.
+- “성능을 수배 개선” — 측정 수치가 필요하다.
+- “오탐 제거” — 예방 Event Logic 개선은 확인되나 실제 감소율이 필요하다.
+- “보안 취약점 기준 전체 구현” — 작업한 개별 항목 범위로 표현한다.
+- “GitLab 무중단 이전” — 중단 시간이 확인되지 않았다.
+
+## 19. 지원 직무별 선택 전략
+
+### 백엔드 개발자
+
+KSTV6 Engine API → 데이터 파이프라인 → MDMS/NiFi → CXL API·메시징 → GitLab 순으로 강조한다.
+
+### 풀스택 개발자
+
+CXL 전체 관리 흐름 → KSTV6 WebMgr → SVT UI·데이터 모델 → 공통 UI·API 연동 순으로 강조한다.
+
+### 데이터 엔지니어
+
+Kafka–Fluentd–OpenSearch → NiFi Flow → 이벤트·통계 정합성 → OpenSearch 조회 전환 순으로 강조한다.
+
+### 보안 솔루션 개발자
+
+KSTV6 보안관제 → KSTV5 취약점 Script → AI SYSLOG → Audit·Alert·White List 순으로 강조한다.
+
+### 산업·프로토콜 솔루션 개발자
+
+SVT IEEE 프로토콜 → ONEWAY OPC·File·DBMS → CXL Host Control → MDMS Meter Data 순으로 강조한다.
+
+## 20. 최종 확인 질문
+
+실제 지원서로 다듬을 때 아래 정보가 필요하다.
+
+1. 각 프로젝트의 정확한 기간
+2. 팀 규모, 직급, 본인의 기여 범위
+3. 프로젝트별 실제 기술 스택
+4. 운영 또는 고객 납품 여부
+5. 공개 가능한 고객·산업명
+6. 성능·오류·이벤트 개선 전후 수치
+7. 본인이 가장 자신 있는 프로젝트 2~3개
+8. 지원할 직무와 경력 연차
+
+이 답이 채워지면 본 문서를 기반으로 한 장짜리 이력서, 상세 경력기술서, 회사별 자기소개서를 각각 만들 수 있다.
+
+
+
+
+<a id="ticket-links"></a>
+
+## 업무 티켓 링크 목록
+
+ID: 1581 
+
+제목: [KSTV6] WebMgr QA 버그리포트 
+
+범위: 07/31 까지
+
+[https://app.notion.com/p/4net/MDMS-NIFI-Flow-28fd0464983580cb8dd6d85cd0b8d2fe?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/MDMS-NIFI-Flow-28fd0464983580cb8dd6d85cd0b8d2fe?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/MDMS-NIFI-Flow-28fd046498358040a93ece490d46c569?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/MDMS-NIFI-Flow-28fd046498358040a93ece490d46c569?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/MDMS-NIFI-Flow-28dd0464983580c1838cd831bdb934a8?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/MDMS-NIFI-Flow-28dd0464983580c1838cd831bdb934a8?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/MDMS-NIFI-Flow-28dd0464983580d09005eaa21cfde3ef?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/MDMS-NIFI-Flow-28dd0464983580d09005eaa21cfde3ef?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/MDMS-28cd046498358035ac54d859cb68d1d1?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/MDMS-28cd046498358035ac54d859cb68d1d1?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-263d046498358044a854effdeb7655b3?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-263d046498358044a854effdeb7655b3?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-263d0464983580dcafe4c4663da88e3a?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-263d0464983580dcafe4c4663da88e3a?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-264d04649835800b8e08d46576d8b127?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-264d04649835800b8e08d46576d8b127?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-PC-4-276d04649835800cae82cba67dabe857?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-PC-4-276d04649835800cae82cba67dabe857?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/IDPP2-273d0464983580a3ba3ac5380673ae83?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/IDPP2-273d0464983580a3ba3ac5380673ae83?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTAI-268d0464983580688639c080f7834a37?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTAI-268d0464983580688639c080f7834a37?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-76-261d0464983580159e02e1494710565d?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-76-261d0464983580159e02e1494710565d?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-70-25dd0464983580c180bfd1d6dffda328?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-70-25dd0464983580c180bfd1d6dffda328?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-21-245d0464983580869eb2cd8cfcf1f382?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-21-245d0464983580869eb2cd8cfcf1f382?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-18-25ed0464983580c2ae3bd97693f27566?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-18-25ed0464983580c2ae3bd97693f27566?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-29-25ed04649835800a8dcfd7ce283f4eca?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-29-25ed04649835800a8dcfd7ce283f4eca?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/253d0464983580deb4d4f0abd2dd7f71?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/253d0464983580deb4d4f0abd2dd7f71?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-49-25dd04649835802aaedffe8678b30bc1?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-49-25dd04649835802aaedffe8678b30bc1?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-72-25dd04649835800498c4f06cf25d7c7c?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-72-25dd04649835800498c4f06cf25d7c7c?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-62-25cd0464983580e883d3d3a9439a4ea8?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-62-25cd0464983580e883d3d3a9439a4ea8?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-24fd04649835801cb3aef5d9f0f37770?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-24fd04649835801cb3aef5d9f0f37770?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/ONEWAY-253d0464983580518760fe0dff5379c6?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/ONEWAY-253d0464983580518760fe0dff5379c6?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/File-253d0464983580c2a747ca48258ee51d?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/File-253d0464983580c2a747ca48258ee51d?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-63-25cd04649835808aa005fdd9f011160d?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-63-25cd04649835808aa005fdd9f011160d?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-64-245d04649835809ca916c858d8191d55?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-64-245d04649835809ca916c858d8191d55?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/ONEWAY-Setup-253d0464983580dabb3cf8d6432a779e?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/ONEWAY-Setup-253d0464983580dabb3cf8d6432a779e?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/ONEWAY-253d0464983580ae86b2f889df80df93?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/ONEWAY-253d0464983580ae86b2f889df80df93?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/OPC-DA-253d0464983580388432f5d099348680?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/OPC-DA-253d0464983580388432f5d099348680?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/ONEWAY-CEMM-253d0464983580a383a8fdf5151a74e7?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/ONEWAY-CEMM-253d0464983580a383a8fdf5151a74e7?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/ONEWAY-CEM-253d046498358016b1b4da94a7b1e4ce?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/ONEWAY-CEM-253d046498358016b1b4da94a7b1e4ce?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/ONEWAY-GUI-253d0464983580548f27c12372d33a52?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/ONEWAY-GUI-253d0464983580548f27c12372d33a52?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-068d04649835837187b3818dec4b47ba?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-068d04649835837187b3818dec4b47ba?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-331d046498358275878a01db4f44ece3?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-331d046498358275878a01db4f44ece3?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-2-3eed046498358306825381a5fbb39413?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-2-3eed046498358306825381a5fbb39413?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-1-5aed04649835820d810681dc04109024?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-1-5aed04649835820d810681dc04109024?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-PC-0c7d046498358399a9c801e80af9d30a?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-PC-0c7d046498358399a9c801e80af9d30a?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-8f0d0464983582329349015d2fbdb285?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-8f0d0464983582329349015d2fbdb285?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-syslog-3a2d0464983580c2bb49f51fe47b2d29?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-syslog-3a2d0464983580c2bb49f51fe47b2d29?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-4a6d0464983583979a3081d9d67d08cf?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-4a6d0464983583979a3081d9d67d08cf?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-AGENT-agentMgr-wmiMgr-7cdd0464983583e3b4128150815d10e5?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-AGENT-agentMgr-wmiMgr-7cdd0464983583e3b4128150815d10e5?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-65cd046498358200b9c801375aa8419a?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-65cd046498358200b9c801375aa8419a?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-cc9d04649835831f938181ea3866d733?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-cc9d04649835831f938181ea3866d733?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-a58d04649835825c9cca01ba4dad7f05?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-a58d04649835825c9cca01ba4dad7f05?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-316d046498358265ad8c81510064d053?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-316d046498358265ad8c81510064d053?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-cd0d0464983582eea60b01bc5f77feab?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-cd0d0464983582eea60b01bc5f77feab?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-IDC-fcbd0464983582e2b18001d0e5b5718a?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-IDC-fcbd0464983582e2b18001d0e5b5718a?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-065d04649835821dac4481bc5164d932?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-065d04649835821dac4481bc5164d932?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-AI-SSE-DB-381d0464983580efa254fb2559b7710a?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-AI-SSE-DB-381d0464983580efa254fb2559b7710a?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-5a0d046498358352a32f81372cd6a707?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-5a0d046498358352a32f81372cd6a707?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-827d046498358294a4b0817a58027cb4?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-827d046498358294a4b0817a58027cb4?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-694d04649835833b9a4f8105310aa522?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-694d04649835833b9a4f8105310aa522?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-Like-c62d046498358254b11b011fd4e1e3f6?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-Like-c62d046498358254b11b011fd4e1e3f6?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-c5cd046498358297bebf8199dcd4e9cc?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-c5cd046498358297bebf8199dcd4e9cc?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-1-d39d046498358271ac06815330d56765?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-1-d39d046498358271ac06815330d56765?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-366d0464983582fbb483019fa6f05307?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-366d0464983582fbb483019fa6f05307?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-2-d46d0464983582fabc6601e84bebf1d5?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-2-d46d0464983582fabc6601e84bebf1d5?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-93bd0464983583a3861b01f53f68fd7b?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-93bd0464983583a3861b01f53f68fd7b?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-502d04649835829f971701045e6f5786?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-502d04649835829f971701045e6f5786?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-cpu-memory-disk-3fed04649835825bbbb601049cb93e78?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-cpu-memory-disk-3fed04649835825bbbb601049cb93e78?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/MVDC-MVDC-371d0464983580c98a96ce54f712c172?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/MVDC-MVDC-371d0464983580c98a96ce54f712c172?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-2-375d0464983580938c49ff062a002ab9?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-2-375d0464983580938c49ff062a002ab9?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-1-375d046498358013acc7dcb0b7ea1c70?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-1-375d046498358013acc7dcb0b7ea1c70?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-1-372d04649835807da041dbeb986bfa17?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-1-372d04649835807da041dbeb986bfa17?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-3-36ed04649835806d9717dcc2696b22c0?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-3-36ed04649835806d9717dcc2696b22c0?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-AI-367d04649835806db76cf1edd2d4544f?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-AI-367d04649835806db76cf1edd2d4544f?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-ReportMgr-UI-365d046498358031bfe1efd3135f5d7a?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-ReportMgr-UI-365d046498358031bfe1efd3135f5d7a?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-367d0464983580c4986bdac67e0379d5?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-367d0464983580c4986bdac67e0379d5?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-366d0464983580a1aa1ef8064f7d7af6?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-366d0464983580a1aa1ef8064f7d7af6?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-35ed0464983580788a90d803c1124b41?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-35ed0464983580788a90d803c1124b41?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-AI-35ed04649835809c9895d3715fa8c53a?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-AI-35ed04649835809c9895d3715fa8c53a?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-OpenSearch-359d046498358032a47bd0c759a42a0c?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-OpenSearch-359d046498358032a47bd0c759a42a0c?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-KSTV5-35ed0464983580fd9e1eddf5b89fd238?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-KSTV5-35ed0464983580fd9e1eddf5b89fd238?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-34dd046498358019ba20feaa4d9bf537?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-34dd046498358019ba20feaa4d9bf537?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-2-34dd046498358044a16afe7e323e2ee8?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-2-34dd046498358044a16afe7e323e2ee8?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/ELSE-IDC-34dd0464983580f69ff4efb23a5bc6ee?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/ELSE-IDC-34dd0464983580f69ff4efb23a5bc6ee?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-AI-349d04649835804ab8a9ed7a22388f01?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-AI-349d04649835804ab8a9ed7a22388f01?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-QA-1-347d046498358061a7ccfa262fe9ff4f?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-QA-1-347d046498358061a7ccfa262fe9ff4f?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-326d046498358014b787c6eb63876e1a?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-326d046498358014b787c6eb63876e1a?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-33ad0464983580a4bf81f23a527db754?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-33ad0464983580a4bf81f23a527db754?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-33cd0464983580faacc7d1ebb1ebf252?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-33cd0464983580faacc7d1ebb1ebf252?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-CSS-341d046498358025a2b7cef690271705?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-CSS-341d046498358025a2b7cef690271705?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-5-326d0464983580178befd601d77ead21?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-5-326d0464983580178befd601d77ead21?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-306d0464983580dd9f37f1fc4d5961a6?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-306d0464983580dd9f37f1fc4d5961a6?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-4-335d0464983580e1a008df9b9d9fdcb0?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-4-335d0464983580e1a008df9b9d9fdcb0?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d04649835809fa82af617e1675492?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d04649835809fa82af617e1675492?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-306d0464983580ec8f86f19b2aeba2f7?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-306d0464983580ec8f86f19b2aeba2f7?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d0464983580e4adbcf13d484d4143?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d0464983580e4adbcf13d484d4143?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-30cd046498358040868def21d3c789fd?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-30cd046498358040868def21d3c789fd?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTAI-AI-SYSLOG-32cd04649835801abf37dfbd2613c355?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTAI-AI-SYSLOG-32cd04649835801abf37dfbd2613c355?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d046498358012a435ee55f5b22280?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d046498358012a435ee55f5b22280?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d0464983580e0a085c697f1458c13?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d0464983580e0a085c697f1458c13?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d046498358027b92be5f022f5da4f?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d046498358027b92be5f022f5da4f?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-306d04649835800cae1edecd043f5128?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-306d04649835800cae1edecd043f5128?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d046498358073afd8c9900866e9ef?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d046498358073afd8c9900866e9ef?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-SYSLOG-306d046498358017af84f9ad09000a2c?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-SYSLOG-306d046498358017af84f9ad09000a2c?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-319d0464983580e19f75deedbd0013a7?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-319d0464983580e19f75deedbd0013a7?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-ip-306d0464983580ae8efec2538eed9df6?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-ip-306d0464983580ae8efec2538eed9df6?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d0464983580fc88fcd7322acd1805?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d0464983580fc88fcd7322acd1805?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d046498358071afbfd74425ac2c4d?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d046498358071afbfd74425ac2c4d?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d0464983580649fa0cccc750cd8f3?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-305d0464983580649fa0cccc750cd8f3?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-314d046498358069a530f6476c3cd0ca?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-314d046498358069a530f6476c3cd0ca?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d04649835800fa60be77ec1865bf9?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d04649835800fa60be77ec1865bf9?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-311d0464983580a3a2f3c3a7d0ce0987?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-311d0464983580a3a2f3c3a7d0ce0987?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d046498358049ab38eb1b1b3225b3?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d046498358049ab38eb1b1b3225b3?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-313d0464983580d0a1e5d0eb4deb49d2?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-313d0464983580d0a1e5d0eb4deb49d2?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d04649835802abd4ffed416ada6e3?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d04649835802abd4ffed416ada6e3?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-311d0464983580a8bac1d050053cbc5d?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-311d0464983580a8bac1d050053cbc5d?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d046498358065a8d2c8db7a6ab925?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d046498358065a8d2c8db7a6ab925?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-311d04649835805199e2e3c410aa6915?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-311d04649835805199e2e3c410aa6915?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-3-311d0464983580d98bb8c842af8e30ab?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-3-311d0464983580d98bb8c842af8e30ab?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d04649835805a8d9becde408219b8?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d04649835805a8d9becde408219b8?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-30fd0464983580e4b66df3ab5a78dbdd?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-30fd0464983580e4b66df3ab5a78dbdd?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d0464983580b7b944f63179a357ca?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-305d0464983580b7b944f63179a357ca?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-30fd046498358015b0e4ec9973c35b95?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-30fd046498358015b0e4ec9973c35b95?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-SWAGGER-30cd0464983580bb9920ccbfce981263?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-SWAGGER-30cd0464983580bb9920ccbfce981263?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-304d0464983580248efeee4e0df31e44?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-2-304d0464983580248efeee4e0df31e44?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-302d0464983580caa835e17074ea9f35?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-UI-1-302d0464983580caa835e17074ea9f35?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-2f7d0464983580e6ab8fd88aad31a363?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-2f7d0464983580e6ab8fd88aad31a363?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-threshold-server-alarm-users-mailserver-casl-2eed0464983580e48e55e206b7fb6e47?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-threshold-server-alarm-users-mailserver-casl-2eed0464983580e48e55e206b7fb6e47?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-result-snmp-ticket-version-2f7d0464983580ad81a1faa41393b815?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-result-snmp-ticket-version-2f7d0464983580ad81a1faa41393b815?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-diagnosis-cpd-disk-memory-tt-2f7d0464983580b48d76cf8c0e20e8d6?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-diagnosis-cpd-disk-memory-tt-2f7d0464983580b48d76cf8c0e20e8d6?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-audit-device-2f7d0464983580ce98b4e9133603edbb?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-WebMgr-Engine-audit-device-2f7d0464983580ce98b4e9133603edbb?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV6-AI-SYSLOG-2f5d0464983580d3bb20f70547fdcdd3?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV6-AI-SYSLOG-2f5d0464983580d3bb20f70547fdcdd3?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/MDMS-2d9d0464983580adbeb6ff4930147c3d?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/MDMS-2d9d0464983580adbeb6ff4930147c3d?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-82-245d04649835809484d1fb0086ca6542?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-82-245d04649835809484d1fb0086ca6542?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-27-24ed0464983580e98524fe804641e470?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-27-24ed0464983580e98524fe804641e470?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-24-245d04649835806dba10f65c7173b526?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-24-245d04649835806dba10f65c7173b526?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-78-245d04649835809b947edd7cce08912f?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-78-245d04649835809b947edd7cce08912f?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-74-245d0464983580cab7c0d48d5b71ec0b?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-74-245d0464983580cab7c0d48d5b71ec0b?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-79-245d0464983580ca8f6fe2252318c462?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-79-245d0464983580ca8f6fe2252318c462?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/KSTV5-W-26-245d0464983580f1b401ec60a48ae16a?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/KSTV5-W-26-245d0464983580f1b401ec60a48ae16a?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-IEEE-23bd04649835802e9c9bfc7de8c965c4?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-IEEE-23bd04649835802e9c9bfc7de8c965c4?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-IEEE-23bd04649835805d95c0f71581c39c81?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-IEEE-23bd04649835805d95c0f71581c39c81?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-23bd046498358091b676e278f83c8738?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-23bd046498358091b676e278f83c8738?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-23cd04649835802aa696eb0c40cea6f3?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-23cd04649835802aa696eb0c40cea6f3?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-23bd0464983580ccbed3cff2dee341f6?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-23bd0464983580ccbed3cff2dee341f6?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-23cd046498358018a5fed7b099efdf53?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-23cd046498358018a5fed7b099efdf53?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-239d046498358023bb59d6c5d432ba84?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-239d046498358023bb59d6c5d432ba84?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-IEEE-238d0464983580ad909cfceae7ccb437?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-IEEE-238d0464983580ad909cfceae7ccb437?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-IEEE-2011-239d046498358049bdc5c9353b8abb0d?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-IEEE-2011-239d046498358049bdc5c9353b8abb0d?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-IEEE-2005-238d0464983580ae8012c5fc442df691?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-IEEE-2005-238d0464983580ae8012c5fc442df691?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-IEEE-2011-238d046498358028838ef3357b9b732c?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-IEEE-2011-238d046498358028838ef3357b9b732c?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-IEEE-2005-238d0464983580009340dadcf0aea154?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-IEEE-2005-238d0464983580009340dadcf0aea154?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-IEEE-2005-238d04649835800a94b6d0d701c1b53d?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-IEEE-2005-238d04649835800a94b6d0d701c1b53d?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-234d046498358018b578cca81fed135d?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-234d046498358018b578cca81fed135d?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-234d046498358041a486f8b3d95b73bb?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-234d046498358041a486f8b3d95b73bb?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-IEEE-2011-234d0464983580ffbe6ff69a1b41c059?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-IEEE-2011-234d0464983580ffbe6ff69a1b41c059?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-IEEE-2005-214d0464983580698190f4d9108795aa?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-IEEE-2005-214d0464983580698190f4d9108795aa?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-PMU-23bd0464983580c18714d6c6f0fc9cf5?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-PMU-23bd0464983580c18714d6c6f0fc9cf5?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-23bd0464983580b1a7f0ce40494940ba?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-23bd0464983580b1a7f0ce40494940ba?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-PMU-23cd0464983580d0abffdf998675bf7a?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-PMU-23cd0464983580d0abffdf998675bf7a?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/ELSE-VM-Gitlab-to-NAS-Gitlab-230d04649835809fa608e97fd29f08b8?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/ELSE-VM-Gitlab-to-NAS-Gitlab-230d04649835809fa608e97fd29f08b8?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/ELSE-VM-Gitlab-to-NAS-Gitlab-230d04649835809fa608e97fd29f08b8?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/ELSE-VM-Gitlab-to-NAS-Gitlab-230d04649835809fa608e97fd29f08b8?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/SVT-PMU-SVT-21fd04649835804289f6d0e144538dbc?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/SVT-PMU-SVT-21fd04649835804289f6d0e144538dbc?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-D-B-ALL-203d0464983580628840ea6b3d522119?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-D-B-ALL-203d0464983580628840ea6b3d522119?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-Host-203d0464983580ec92f4ce2bbac22e74?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-Host-203d0464983580ec92f4ce2bbac22e74?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-Group-runScript-203d0464983580858952c0745c40b4a1?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-Group-runScript-203d0464983580858952c0745c40b4a1?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-Common-TNB-DTNB-203d04649835801d889ad3e5b56f583b?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-Common-TNB-DTNB-203d04649835801d889ad3e5b56f583b?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-23ed04649835806d9511cefba494269e?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-23ed04649835806d9511cefba494269e?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-23ed0464983580c599b2d730c1ed0ee8?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-23ed0464983580c599b2d730c1ed0ee8?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-Transaction-Log-Page-1cfd04649835808fa911ea7bfe2677cd?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-Transaction-Log-Page-1cfd04649835808fa911ea7bfe2677cd?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-Script-Page-1cfd04649835805bbe2cd64f58647121?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-Script-Page-1cfd04649835805bbe2cd64f58647121?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-Settings-Page-1cfd0464983580e986b6c89d43533e9f?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-Settings-Page-1cfd0464983580e986b6c89d43533e9f?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-Host-List-Page-1cfd0464983580519a4af2325dd974d5?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-Host-List-Page-1cfd0464983580519a4af2325dd974d5?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-Group-Page-1cfd04649835805589cbfd5e01f12f71?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-Group-Page-1cfd04649835805589cbfd5e01f12f71?v=1a6d0464983580668829000cf0a98885&source=copy_link)
+
+[https://app.notion.com/p/4net/CXL-Login-Page-1ced046498358026b5ffcdf99da81462?v=1a6d0464983580668829000cf0a98885&source=copy_link](https://app.notion.com/p/4net/CXL-Login-Page-1ced046498358026b5ffcdf99da81462?v=1a6d0464983580668829000cf0a98885&source=copy_link)

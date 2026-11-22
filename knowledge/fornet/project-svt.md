@@ -10,7 +10,7 @@
 
 2026-11-22 로컬 전체 Ref와 개인 author 재집계. 4개 저장소 477건 중 개인 191건(전부 비병합). `4cb4b0f`의 Scenario 폼·서비스 변경과 `SynchrophasorMgr/Service/ScenarioService.cs`를 확인했다. 10월 V1.0 설치 묶음은 6~7월 개인 Git과 시기를 구분한다.
 
-132~151번의 Frame·폼·보고서·PMU 업무는 mgr 변경을 찾는 실마리다. 설치·엔진의 작성 범위는 각 저장소별로 판단한다. [업무 티켓 소스](../ticket/업무%20티켓%20소스.md)
+132~151번의 Frame·폼·보고서·PMU 업무는 mgr 변경을 찾는 실마리다. 설치·엔진의 작성 범위는 각 저장소별로 판단한다. [업무 티켓 소스](./process-ticket.md)
 
 <a id="evidence"></a>
 

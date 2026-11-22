@@ -6,11 +6,12 @@ MPQM 루트의 `knowledge/`에 경력 근거를 둔다. 웹·이력서·슬라�
 
 ## 1. 시작점
 
-- 전체 경력 확인: `knowledge/지원 자료.md#dashboard`
-- 문서 안내: `knowledge/README.md`
-- 프로젝트 상세 근거: `knowledge/reason/`
-- 통합 지원 자료: `knowledge/지원 자료.md`
-- 업무 티켓: `knowledge/ticket/`
+- 전체 경력 확인: `knowledge/result/knowledge.md#dashboard`
+- 문서 안내: 루트 `README.md`
+- 회사 프로젝트 상세 근거: `knowledge/fornet/project-*.md`
+- 통합 지원 자료: `knowledge/result/knowledge.md`
+- 업무 티켓 및 링크 목록: `knowledge/fornet/process-ticket.md`
+- 별도 자료: `knowledge/private/`
 
 기존 문서를 먼저 확인하고, 부족한 근거만 프로젝트 Source에서 추가 조사한다.
 
@@ -51,16 +52,16 @@ Git은 작성자·기간·기능 경로로 범위를 좁힌 뒤 대표 변경 Ch
 ## 5. 문서 관리
 
 - 상세 근거는 충분한 분량으로 보존·확장하고 대시보드와 제출 문서는 목적에 맞춰 다룬다.
-- 프로젝트 문서는 `knowledge/reason/{프로젝트명}-경력 근거.md` 형식이다. 역할과 범위, 재조사, 상세 근거, 지원서 제작 원고, Git 기록 순으로 정리한다. 커밋 목록과 시험 자료는 해당 본문의 부록으로 둔다.
+- 회사 프로젝트 문서는 `knowledge/fornet/project-{프로젝트명}.md` 형식이다. 역할과 범위, 재조사, 상세 근거, 지원서 제작 원고, Git 기록 순으로 정리한다. 커밋 목록과 시험 자료는 해당 본문의 부록으로 둔다.
 - 새로 만들거나 정리하는 경력 문서는 파일 앞 번호와 언더바를 사용하지 않는다. 단어 사이에는 공백을 쓰고 기존 링크를 갱신한다.
-- `knowledge/ticket/`에는 티켓 원문과 해석 자료를 관리한다. 티켓의 역할과 결과는 Git·시험·사용자 확인으로 보강한다.
+- `knowledge/fornet/process-ticket.md`에는 티켓 해석과 링크 목록을 관리한다. 티켓의 역할과 결과는 Git·시험·사용자 확인으로 보강한다.
 - 조사 범위에서 제외한 프로젝트는 기존 경로와 내용을 유지한다.
 - 회사 비공개 Code, 개인정보, 비밀번호, Token과 불필요한 내부정보는 복제하지 않는다.
 - 외부 제출본은 회사·고객·시스템 정보를 익명화한다.
 
 ## 6. History
 
-경력 문서나 규칙을 변경한 작업만 `knowledge/HISTORY.md`에 두 줄로 남긴다. 첫 줄은 날짜·요청, 둘째 줄은 결과·변경·검증이다.
+경력 문서나 규칙을 변경한 작업만 루트 `HISTORY.md`에 두 줄로 남긴다. 첫 줄은 날짜·요청, 둘째 줄은 결과·변경·검증이다.
 
 ## 7. 완료 기준
 

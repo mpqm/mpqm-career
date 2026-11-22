@@ -1,13 +1,13 @@
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { access, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { access, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 import { fileURLToPath } from 'node:url';
 import { startServer } from './serve.mjs';
 
-const root = fileURLToPath(new URL('../../../', import.meta.url));
+const downloadDir = fileURLToPath(new URL('../../download/', import.meta.url));
 const browserCandidates = [
   process.env.PORTFOLIO_BROWSER,
   'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -126,9 +126,10 @@ try {
     if (pdf.subarray(0, 5).toString('ascii') !== '%PDF-') throw new Error(`Invalid PDF: ${view.file}`);
     files.push({ name: view.file, pdf });
   }
+  await mkdir(downloadDir, { recursive: true });
   for (const { name, pdf } of files) {
-    await writeFile(join(root, 'knowledge', name), pdf);
-    console.log(`knowledge/${name}`);
+    await writeFile(join(downloadDir, name), pdf);
+    console.log(`carrer/download/${name}`);
   }
 } finally {
   page?.close();

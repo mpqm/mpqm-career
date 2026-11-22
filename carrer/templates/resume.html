@@ -1,4 +1,4 @@
-<div class="resume-toolbar"><a href="./index.html">← 홈페이지</a><span>간단 이력서 · 재직 기간 확인 전 초안</span><button id="print-button" type="button">인쇄 / PDF 저장</button></div>
+<div class="resume-toolbar"><a href="./index.html">← 홈페이지</a><span>간단 이력서 · 재직 기간 확인 전 초안</span><a href="./download/이력서.pdf" download>PDF 다운로드</a><button id="print-button" type="button">인쇄 / PDF 저장</button></div>
   <main class="resume-sheet">
     <header class="resume-header"><div><p class="resume-overline">FULL-STACK DEVELOPER / <span data-text="careerLevel"></span></p><h1 data-text="name"></h1><p data-text="headline"></p></div><div class="resume-contact" id="resume-contact"></div></header>
     <section class="resume-section"><h2>Profile</h2><p class="resume-profile" data-text="intro"></p></section>
@@ -8,9 +8,16 @@
     <section class="resume-section"><h2>Education</h2><div class="resume-main" id="resume-education"></div></section>
     <section class="resume-section"><h2>Certificates</h2><div class="resume-main resume-cert" id="resume-certificates"></div></section>
   </main>
-  <template id="resume-project-template"><article class="resume-project"><div><span></span><h3></h3></div><div><p></p><small></small></div></article></template>
-  <template id="resume-skill-template"><div><strong></strong><span></span></div></template>
-  <template id="resume-education-template"><div class="resume-background"><time></time><div><strong></strong><span></span></div></div></template>
-  <template id="resume-contact-template"><a></a></template>
-  <template id="resume-bullet-template"><li></li></template>
-  <template id="resume-certificate-template"><span></span></template>
+  <template id="resume-project-template">
+    <article class="resume-project">
+      <div><span data-text="category"></span><h3 data-text="name"></h3></div>
+      <div><p data-text="summary"></p><small data-text="contribution"></small></div>
+    </article>
+  </template>
+  <template id="resume-skill-template"><div><strong data-text="title"></strong><span></span></div></template>
+  <template id="resume-education-template">
+    <div class="resume-background"><time data-text="date"></time><div><strong data-text="title"></strong><span data-text="detail"></span></div></div>
+  </template>
+  <template id="resume-contact-template"><a data-text="text"></a></template>
+  <template id="resume-bullet-template"><li data-text="."></li></template>
+  <template id="resume-certificate-template"><span data-text="."></span></template>
