@@ -1,0 +1,36 @@
+<header class="detail-header"><div class="detail-shell"><a class="detail-brand" href="./index.html">PJS<span>.</span></a><nav aria-label="상세 포트폴리오 메뉴"><a href="#overview">소개</a><a href="#experience">경력</a><a href="#work">프로젝트</a><a href="#appendix">이전 작업</a></nav><div class="detail-switch"><a href="./index.html?view=resume">간단 이력서 ↗</a><a href="./index.html?view=slides">슬라이드 양식 ↗</a></div></div></header>
+  <main>
+    <section class="detail-cover detail-shell" id="overview">
+      <div class="detail-cover-top"><span>PORTFOLIO / 2026</span><span>경력 2년 차 · FULL-STACK DEVELOPER</span></div>
+      <div class="detail-cover-main"><div><p class="detail-kicker">박종성 / DEVELOPMENT PORTFOLIO</p><h1>화면에서 데이터까지,<br><em>운영 문제를 해결합니다.</em></h1><p>KSTV6, CXL, 데이터 파이프라인에서 구현한 범위와 검증한 결과를 프로젝트별로 정리했습니다.</p></div><div class="detail-cover-photo"><img src="./static/image/profileimg.jpg" alt="박종성 프로필 사진"><span>FULL-STACK DEVELOPER</span></div></div>
+      <div class="detail-cover-bottom"><a href="#work">프로젝트 살펴보기 ↓</a><span data-text="name"></span></div>
+    </section>
+    <section class="detail-intro detail-shell">
+      <div class="detail-section-title"><span>01 / POSITIONING</span><h2>어떤 개발자인가</h2></div>
+      <div class="detail-intro-content"><p class="detail-claim">화면과 API를 연결하고, <strong>데이터 처리 조건까지</strong> 확인합니다.</p><p data-text="intro"></p><div class="detail-focus-list" id="detail-focus"></div></div>
+    </section>
+    <section class="detail-experience" id="experience"><div class="detail-shell"><div class="detail-section-title"><span>02 / PROFESSIONAL EXPERIENCE</span><h2>실무 경력</h2></div><div class="experience-layout"><div><p class="experience-lead" data-text="career.title"></p><p><span data-text="career.company"></span><br><span data-text="career.period"></span></p><p data-text="career.prompt"></p><a href="#kstv6">대표 사례 보기 ↗</a></div><div class="experience-slots" id="experience-list"></div></div></div></section>
+    <section class="detail-work detail-shell" id="work"><div class="detail-section-title"><span>03 / SELECTED PROJECTS</span><h2>프로젝트 사례</h2></div><p class="work-intro">최근 실무부터 배치했습니다. 각 사례에서 문제, 개인 기여 범위, 확인된 결과를 구분했습니다.</p><div class="work-index" id="work-index"></div><div id="case-list"></div></section>
+    <section class="detail-appendix" id="appendix"><div class="detail-shell"><div class="detail-section-title"><span>04 / EARLIER WORK</span><h2>이전 작업</h2></div><div class="appendix-grid"><div><p class="appendix-lead">실무 이전의 팀·학부 프로젝트입니다. 현재 포트폴리오에서는 경력 프로젝트를 우선합니다.</p><a href="https://github.com/mpqm/spring-service-zippop" target="_blank" rel="noopener noreferrer">ZIPPOP 공개 저장소 ↗</a></div><div class="appendix-list" id="appendix-list"></div></div></div></section>
+    <section class="detail-contact detail-shell"><span>CONTACT / NEXT STEP</span><h2>읽어주셔서<br>감사합니다.</h2><p><span data-text="name"></span> · <span data-text="role"></span></p><div id="detail-links"></div></section>
+  </main>
+  <footer class="detail-bottom"><div class="detail-shell"><span>© 박종성 · Portfolio draft</span><a href="#overview">맨 위로 ↑</a></div></footer>
+
+  <template id="detail-focus-template"><div><span></span><strong></strong><p></p></div></template>
+  <template id="experience-template"><div><span></span><strong></strong></div></template>
+  <template id="work-index-template"><a><span></span><strong></strong><small></small><b aria-hidden="true">↗</b></a></template>
+  <template id="case-template"><article class="case-study"><header class="case-header"><div><p class="case-count"></p><h2></h2><p class="case-one-line"></p></div><div class="case-meta"><span>PERIOD</span><strong class="case-period"></strong><span>ROLE</span><strong class="case-role"></strong></div></header><div class="case-visual"></div><div class="case-narrative"></div><div class="case-deep"></div><footer class="case-footer"><div><span>TECHNOLOGY</span><p class="case-stack"></p></div><div><span>자료 근거</span><p class="case-evidence"></p></div><div class="case-links"></div></footer></article></template>
+  <template id="narrative-template"><section><div class="case-label"><span></span><h3></h3><small></small></div><p></p></section></template>
+  <template id="deep-template"><section><div><span></span><h4></h4></div><dl><dt>문제</dt><dd></dd><dt>구현</dt><dd></dd><dt>확인된 결과</dt><dd></dd></dl></section></template>
+  <template id="appendix-template"><div><span></span><strong></strong><small></small></div></template>
+  <template id="case-system-template">
+    <div class="system-owner"><span>MY SCOPE</span><strong>관리자 웹 화면 + Orchestrator API</strong><p>Group · Host · Memory · Script · Dashboard</p></div>
+    <div class="system-path">요청 ↓ ActiveMQ ↓ 결과</div>
+    <div class="system-peers"><span>COLLABORATING MODULES</span><strong>Control Plane · Agent · Resource Manager</strong></div>
+    <span class="visual-caption">담당 범위를 구분한 개념도</span>
+  </template>
+  <template id="case-flow-template"><div class="diagram-flow"></div><span class="workflow-caption"></span></template>
+  <template id="diagram-step-template"><div class="diagram-step"><small></small><strong></strong></div></template>
+  <template id="case-deep-heading-template"><div class="case-deep-heading"><span>ENGINEERING DECISIONS</span><h3>문제를 어떻게 해결했는가</h3></div></template>
+  <template id="detail-link-template"><a target="_blank" rel="noopener noreferrer"></a></template>
+  <template id="case-type-template"><span></span></template>
