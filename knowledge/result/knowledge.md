@@ -6,7 +6,7 @@
 
 - [경력 대시보드](#dashboard) · [경력 근거 지도](#evidence-map) · [경력기술서](#career) · [이력서](#resume)
 - [자기소개서와 STAR 사례](#star) · [포트폴리오 구성](#portfolio) · [면접 질문과 답변](#interview) · [지원 직무와 공고 대응](#strategy)
-- [근거 깊이 점검](#depth-review) · [배포·검수·저작 근거](#evidence-review)
+- [근거 깊이 점검](#depth-review) · [배포·검수·저작 근거](#evidence-review) · [01. work 이관 보조 자료](#work-supplement)
 
 ## 현행 수치와 역할 기준
 
@@ -153,6 +153,14 @@
 | 이력서 제출본 작성 | [채용용 이력서 원본](#resume) |
 | 자기소개서 사례 선택 | [STAR 사례집](#star) |
 | 면접 준비 | [면접 Q&A](#interview) |
+
+권장 사용 순서(01. work 이관):
+
+1. [지원 직무와 공고 대응](#strategy)에서 지원 공고와 주력 포지션을 결정한다.
+2. [이력서](#resume)를 공고 Keyword에 맞춰 1~2페이지로 조정한다.
+3. 상세 경력이 필요하면 [경력기술서](#career)에서 해당 Project를 가져온다.
+4. 자기소개서 문항은 [STAR 사례](#star)를 사용한다.
+5. 서류 제출 후 [면접 질문과 답변](#interview)으로 기술·행동·압박 면접을 준비한다.
 
 #### 9. 갱신 방법
 
@@ -2155,6 +2163,21 @@ IDPP로 폐쇄망 설치 자산 준비, k3s 부트스트랩, Cilium, GitOps, 상
 - [상세 근거 DB](../fornet/project-idpp.md#evidence) · [사람인·Figma 제작 원고](../fornet/project-idpp.md#materials) · [397건 Git 목록](../fornet/project-idpp.md#git). 사용자가 직접 작성했다고 확인한 2025년 초기 UI·ERD·총괄시험계획 HWP, 기능개선 PPTX와 2026년 k3s 문서를 별도 시기로 조사했다. k3s 저장소는 개인 Git 397건(2026-10-13~11-10)이고 IDPP 앱 기능 개발은 본인 기여에서 제외한다.
 - 폐쇄망 설치·GitOps·Local PV/Longhorn·VM 설치/장애 분석이 주력 근거다. 발표자료의 10만 Tag/초 및 운영 20대는 목표/계획이며, 시험 VM의 1만 건/초는 Kafka 디스크 장애 조건이다. 운영 전면 성능 달성으로 전환하지 않는다. 기존 947건은 IDPP 조사 전의 역사적 스냅샷으로 유지하고 단순 가산한 총합을 만들지 않는다.
 
+### 보조 자료 (01. work 이관)
+
+> 2026-07-31 전수 감사 당시의 분석 기준과 심층 확인 방식이다. 당시 커밋 수치는 위 현행 기준과 2026-11 갱신 기록을 따른다.
+
+#### 감사 심층 확인 방식
+
+- 모든 커밋은 메타데이터와 변경 경로를 분류했지만, 모든 변경 줄을 동일한 깊이로 읽었다는 뜻은 아니다. 기능 도입·설계 전환·대형 리팩터링·성능·장애 해결을 보여 주는 Commit Chain을 골라 Patch와 현재 Code를 심층 확인했다.
+- 감사 당시 CXL·KSTV6·`97. tester`·SCG 일부·ONEWAY 일부 저장소에 미커밋 변경이 있었다. 사용자 작업은 수정하지 않았고 Commit 통계·성과 근거에서 제외했다.
+
+#### 분석 기준
+
+- **Git**: 본인 Commit은 author 기준으로 식별하고 Commit 수·기간·대표 Hash·변경 집중 파일을 기록했다. 추가·삭제 줄에는 초기 Code·자동 생성 File·Resource·Rename·Refactoring이 포함되므로 성과 수치로 직접 사용하지 않는다.
+- **Meta 산출물**: DOCX는 본문과 Table을 함께 추출했다. XLSX는 Sheet·Header·Test Case·Result를 확인했고, 성능 Graph XLSX는 전체 사용 범위 `A1:AE24`의 Cell 값과 Rendering을 함께 검수했다. 본인 이름이 작성자로 명시된 문서는 직접 작성 근거로 구분하고, Team Manual처럼 개인 작성자가 없는 문서는 제품 범위의 보조 근거로만 사용했다.
+- **성과·기여도**: “기능 구현”, “분석·시험”, “문서 작성”, “협업 영역”을 나눴다. 실제 수치가 있는 경우만 정량 성과로 기록하고, 측정치가 없는 운영 효과는 “기반 마련”, “정합성 확보”, “위험 축소”로 표현했다. 전체 Platform·AI Model·산업 Protocol 자체를 단독 개발한 것처럼 확대하지 않았다.
+
 
 <a id="depth-review"></a>
 
@@ -2224,3 +2247,53 @@ IDPP로 폐쇄망 설치 자산 준비, k3s 부트스트랩, Cilium, GitOps, 상
 3. 사용자 본인이 맡은 범위가 명시된 업무 배정·검수 의견, 공개 가능한 수치와 범위
 
 이 자료가 제공되면 프로젝트별 상세 문서에 추가하고, 사람인·Figma 원고의 표현 범위도 함께 갱신한다.
+
+<a id="work-supplement"></a>
+
+## 01. work 이관 보조 자료
+
+> 출처: `00. fornet/01. work/`의 2026-07-31 판 프로젝트 문서(01 CXL·03 KST·04 Data Pipeline·05 ONEWAY·06 SCG). 2026-11-24 병합 때 프로젝트 상세 근거(`fornet/project-*.md`)에 없던 항목만 골라 이곳에 모았다. 수치·기간·경로·역할이 다르면 프로젝트 상세 근거(2026-11 재조사)가 우선한다. 02 SVT는 모든 내용이 이미 상세 근거에 반영돼 있어 옮긴 항목이 없다. 경력기술서·STAR·지원 전략·면접 문서에서 옮긴 항목은 [대시보드 권장 사용 순서](#dashboard)와 [경력 근거 지도의 보조 자료](#evidence-map)에 있다.
+
+### CXL ENABLER — [상세 근거](../fornet/project-cxl.md#evidence)
+
+- **이전 감사 범위(§1.1 보강):** 본인 커밋의 날짜·제목·변경 파일을 모두 열람했고, 기능 규모가 크거나 설계 전환을 보여 주는 14개 커밋은 실제 Patch·현재 Code와 직접 대조했다. 당시 Patch 심층 확인 대상에는 상세 근거 목록 외에 Host Info, Script API, Transaction AOP, Group 삭제 제약, Host 삭제가 포함됐다. 원문에 개별 Hash 목록이 없어 14개가 어떤 커밋인지는 `확인 필요`.
+- **INFERENCE(§5 업무 성과 보강):** 관리 도구는 잘못된 입력이나 비정상 상태에서 더 큰 장애를 만들 수 있다. 상태·검증·오류 제약을 화면과 Service 계층에 반영한 것은 "운영 가능한 수준"의 방어 로직을 갖춘 작업으로 설명할 수 있다. 실제 장애 예방 건수는 측정되지 않았다.
+
+### KSTV6 Report Manager — [상세 근거](../fornet/project-kstv6.md#evidence)
+
+- **INFERENCE(§8.5 자동 보고서):** Cron 실행만 붙인 것이 아니라 업무 기준일·사용자·언어·파일 형식·대상 범위를 Job별 Request로 구성했다.
+- **INFERENCE(§8.6 취약점 보고서):** 대량·복합 취약점 Data를 Report Query가 반복해서 조합하지 않도록, 생성 단위별 임시 Table을 만들어 Jasper에 전달한 뒤 정리하는 Pipeline으로 구성했다.
+- **INFERENCE(§8.7 이력·감사·알림·보존기간):** 파일 생성 Method만 만든 것이 아니라 요청→완료·실패, 사용자 통지, 감사 추적까지 운영 상태를 끝까지 연결했다. 보존기간 정리는 정해진 Pattern의 Report Directory만 순회하도록 범위를 제한하고, 삭제 결과를 감사 이력에 남겨 파일 Lifecycle을 운영 기능으로 만들었다.
+
+### AI 관제 Data Pipeline·Tester — [상세 근거](../fornet/project-kstv6.md#pipeline)
+
+- **장비 Generator(§4):** 실제 Parsing Rule·Sample 형식을 기반으로 EventData를 생성하므로, 단순 Random String보다 운영에 가까운 입력을 제공한다.
+- **운영 편의(§4):** Named Instance·PID·Signal·`status`/`stop`은 개발자 Terminal에서 한 번 돌리는 용도가 아니라 반복 시험과 장기 실행을 위한 운영 기능이다.
+- **측정 조건(§8 장기 조회):** Windows Security Top 10과 원시 Log 검색 값은 단일 값이 아니다. 단일 Index Refresh 1초/5초, 일별 Index Refresh 1초의 세 가지 조건에 따라 달라지는 범위로 기록됐다. 한 조건의 값만 떼어 대표 성능으로 쓰지 않는다.
+- **CLAIM 후보(§11 재현 가능한 시험 자산):** 개인 노하우로 끝내지 않고 다른 개발자가 다시 실행할 수 있는 시험 자산으로 남겼다.
+
+### ONEWAY e-Power Diode — [상세 근거](../fornet/project-oneway.md#evidence)
+
+> 구버전의 928개 커밋, `04. oneway` 경로, "모든 Protocol E2E 검증"·"실행 가능 환경 확보" 표현은 재조사 결과와 충돌해 옮기지 않았다.
+
+- **`프로젝트분석.md` 규모(FACT, 구버전 기록):** 2,661줄, Heading 165개, 약 120KB. 자료 규모일 뿐 개인 작성량으로 환산하지 않는다.
+- **`프로젝트분석.md` 추가 수록 항목(구버전 기록):** Controller·Service·Task의 Source 위치, Module 간 API·Data·Audit·설정 전파 Chain, Dashboard Worker별 API, ZeroMQ Instance·Port·Pattern, 구·신 CEM 구조, 각 Module의 Config File과 Option, Server·Message Queue·DB·보안 설정. 내부 Port·보안 설정 값은 경력 문서로 옮기지 않는다.
+- **Protocol별 검증 관점(§6 보강):** 아래 표는 시험 설계 관점이며 수행 결과나 PASS 증빙이 아니다. 결과 판정은 상세 근거 §6·§13.4를 따른다.
+
+| Protocol | 환경 구성 요소 | 점검 관점 |
+|---|---|---|
+| File·FTP | FileZilla Server, FTP Client·Server, TX Source Directory·RX Destination, 전송 상태·Audit·통계 화면 | File 생성·변경 감지, FTP Login·Directory, 단방향 구간 통과, RX File 생성, 전송 성공·실패 Log, 중복·재시도 여부 |
+| DBMS | MariaDB 등 Source·Destination DB, Query·Table Mapping, DPE DBMS Handler | Source Row 조회, 단방향 전송, Destination Insert, Data Type·Encoding, Record 수·통계, 연결 장애와 재처리 |
+| OPC UA | OPC UA Server Simulator, UAExpert 등 Client Tool, OPC Tag | Server Endpoint·인증, Node·Tag Browse, Value 변경 수집, TX→RX Tag 전달, 주기·Timestamp·품질 값 |
+| OPC DA | OPC Classic Demo Client, Matrikon OPC Simulation, OPC Core Components x86/x64, DCOM·Bitness 의존성 | OPC DA Server 연결, Item·Tag 조회, Value 변화, x86/x64 Component 호환성, TX 수집·RX 전달, 별도 환경·절차 문서화 |
+| Application | 사용자 정의 Packet·Byte Stream, App Proxy 설정 | 단방향 송·수신, Byte 단위 통계, Service Process 상태 |
+
+- **구버전 문서가 든 추가 근거 유형:** 설치 Package, 환경 구성 파일, 사용자·설치 Manual, 세미나 문서. Manual의 작성자·버전은 `확인 필요`이며 개인 작성 산출물로 쓰지 않는다.
+- **구 Version 설치 대상 표기:** 구버전 문서는 구 Version을 "SBOX/PBOX 또는 Sender·Receiver 제품"으로 적었다. 정확한 제품명과 설치 완료 여부는 `확인 필요`.
+- **티켓에 기록된 세미나 업무 항목:** Seminar 문서 작성, 제품 구조와 단방향 전송 흐름 정리, 설치·시험 결과 공유, 발표. "시험 결과 공유"는 상세 근거 §6·§13.4의 판정(FTP 확인, OPC DA/APP 방법 정리, OPC UA 오류, DBMS 구조 분석) 범위를 넘지 않는다.
+- **CLAIM 후보:** 암묵적인 제품 지식을 Architecture와 Data Flow로 변환했다 / 각 Module의 역할과 의존성을 팀이 재사용할 수 있게 정리했다 / Protocol별 시험 환경과 절차를 공유했다. 앞의 두 문장은 64장 PPTX가 뒷받침하고, 세 번째 문장은 "재현 가능하게"를 붙이지 않고 절차 정리 수준으로만 쓴다.
+- **CLAIM 후보(분석 접근):** "제품 전체를 한 번에 읽기 어려운 상황에서 화면→API→Service→Factory→Handler→전송 Engine 순으로 분석."
+
+### SCG MDMS·GASDOT — [상세 근거](../fornet/project-scg.md#evidence)
+
+- **FACT(2026-07 감사 방법):** 본인 커밋 75건을 건별로 제목·변경 파일·Diff 통계까지 확인했다. Merge 5건을 뺀 직접 변경은 공식 담당 4개 영역(NiFi·Join Key·CO 예방·PLC Collector)과 Dashboard 후속 보완으로 다시 나눴다. 현재 수치 76건(비병합 71건)은 이후 2026-11-09 `052c657` 1건이 더해진 재집계이며, 분류 기준은 그대로 유효하다.
